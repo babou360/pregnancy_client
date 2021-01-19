@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "730511684926",
+    "project_id": "pregnancy-f6ebe",
+    "storage_bucket": "pregnancy-f6ebe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730511684926:android:c6b98df332619e08aae86f",
+        "android_client_info": {
+          "package_name": "com.babou360.pregnancy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq-kAx4Q6PB278-fThtnU6PycQ9701xNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
