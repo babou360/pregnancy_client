@@ -30,7 +30,7 @@ class _MotherScreenState extends State<MotherScreen> {
     super.initState();
     pregnancy.updateValue(this.widget.currentUser);
     _selectedIndex = pregnancy.months;
-    motherMonthStram = _userDatabaseService.getMomMonth(_selectedIndex);
+    // motherMonthStram = _userDatabaseService.getMomMonth(_selectedIndex);
   }
 
   _onDaySelected(int index) {

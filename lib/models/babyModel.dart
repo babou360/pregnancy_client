@@ -3,5 +3,6 @@ class Baby {
   double size;
   double weight;
   String imageURL;
+  String title;
   String tipDescription;
 }

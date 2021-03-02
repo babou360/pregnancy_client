@@ -21,14 +21,17 @@ class _SliderPageState extends State<SliderPage> {
   List<Widget> _slidePages = [
     SliderControl(
         description:
-            "Every week during pregnancy, We provide you with important information",
+        "Kila wiki wakati wa mimba,Tunakupatia Taarifa muhimu",
+            // "Every week during pregnancy, We provide you with important information",
         imagePath: "images/slider1.jpg"),
     SliderControl(
-        description: "We plan a healthy diet for you during pregnancy",
+       description: "Tunakushauri kuhusu chakula bora kwa ujauzito wako",
+        // description: "We plan a healthy diet for you during pregnancy",
         imagePath: "images/slider2.jpg"),
     SliderControl(
         description:
-            "We monitor the progress of you and you`r baby during pregnancy",
+        "Tunakuelezea maendeleo yako na ya mwanao katika kipindi cha ujauzito",
+            // "We monitor the progress of you and you`r baby during pregnancy",
         imagePath: "images/slider3.jpg")
   ];
 

@@ -82,7 +82,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                       left: 0,
                     ),
                     CustomTitle(
-                      title: "Verify Phone",
+                      title: "Thibitisha ",
                       top: blockHeight * 7,
                       left: blockWidth * 10,
                     ),
@@ -98,7 +98,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                               child: RichText(
                                 text: TextSpan(
                                   text:
-                                      "Please type the verification code send to ",
+                                      "tafadhali ingiza msibo uliotumwa kwenye namba ",
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: this.widget.loginUser.mobileNumber,
@@ -123,7 +123,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                           ),
                           SizedBox(height: blockHeight * 5),
                           CustomButton(
-                            title: "Verify Now",
+                            title: "Thibitisha sasa",
                             width: blockWidth * 50,
                             bgColor: Colors.green[400],
                             textColor: Colors.white,
@@ -137,7 +137,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  "Didn`t get code ?   ",
+                                  "Haukupata Msimbo ?   ",
                                   style: TextStyle(
                                     fontSize: blockWidth * 3.5,
                                     fontWeight: FontWeight.w300,
@@ -145,7 +145,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                                   ),
                                 ),
                                 CustomButton(
-                                  title: "Resend",
+                                  title: "Tuma",
                                   width: blockWidth * 25,
                                   bgColor: Colors.green[50],
                                   textColor: Colors.black54,

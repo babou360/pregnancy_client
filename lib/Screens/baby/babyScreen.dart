@@ -8,6 +8,7 @@ import 'package:pregnancy_tracking_app/widget/CustomBannerText.dart';
 import 'package:pregnancy_tracking_app/widget/CustomLoading.dart';
 import 'package:pregnancy_tracking_app/widget/ImageView.dart';
 import 'package:pregnancy_tracking_app/widget/tipContainer.dart';
+import 'package:share/share.dart';
 
 class BabyScreen extends StatefulWidget {
   User currentUser;
@@ -24,6 +25,7 @@ class _BabyScreenState extends State<BabyScreen> {
   UserDatabaseService _userDatabaseService = UserDatabaseService();
   int _selectedIndex;
   Stream babyWeekStram;
+  Future babyWeekStram1;
   Baby babyWeek = Baby();
 
   @override
@@ -31,27 +33,38 @@ class _BabyScreenState extends State<BabyScreen> {
     super.initState();
     pregnancy.updateValue(this.widget.currentUser);
     _selectedIndex = pregnancy.weeks;
-    babyWeekStram = _userDatabaseService.getBabyWeek(_selectedIndex);
+     babyWeekStram = _userDatabaseService.getBabyWeek(_selectedIndex);
+    // babyWeekStram1 = _userDatabaseService.baby1(int.parse(_selectedIndex.toString()));
   }
 
   _onDaySelected(int index) {
     setState(() {
       _selectedIndex = index;
-      babyWeekStram = _userDatabaseService.getBabyWeek(_selectedIndex);
+      // babyWeekStram = _userDatabaseService.getBabyWeek(_selectedIndex);
+       babyWeekStram1 = _userDatabaseService.baby1(int.parse(_selectedIndex.toString()));
+      // babyWeekStram1 = _userDatabaseService.baby1(int.parse(_selectedIndex.toString()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: babyWeekStram,
+    return FutureBuilder(
+      future: babyWeekStram1,
+      // stream: babyWeekStram,
       builder: (context, currentBabySnap) {
-        if (currentBabySnap.hasData && currentBabySnap.data.exists) {
-          this.babyWeek.size = double.parse(currentBabySnap.data["length"]);
-          this.babyWeek.weight = double.parse(currentBabySnap.data["weight"]);
+        if (!currentBabySnap.hasData) {
+          Center(
+            child: Text('No Data '),
+          );
+        }
+            if (currentBabySnap.hasData && currentBabySnap.data.exists) {
+          // if (currentBabySnap.hasData) {
+          // this.babyWeek.size = double.parse(currentBabySnap.data["length"]);
+          // this.babyWeek.weight = double.parse(currentBabySnap.data["weight"]);
           this.babyWeek.imageURL = currentBabySnap.data["image"];
+          this.babyWeek.title = currentBabySnap.data["title"];
           this.babyWeek.tipDescription = currentBabySnap.data["description"];
-          this.babyWeek.week = int.parse(currentBabySnap.data["week"]);
+          // this.babyWeek.week = int.parse(currentBabySnap.data["week"]);
         }
         if (currentBabySnap.connectionState == ConnectionState.waiting) {
           return CustomLoading();
@@ -67,103 +80,46 @@ class _BabyScreenState extends State<BabyScreen> {
                   child: Column(
                     children: [
                       Container(
-                        height: 300,
-                        width: MediaQuery.of(context).size.width,
-                       child: Image.network(this.babyWeek.imageURL,fit: BoxFit.cover)
-                      ),
+                          height: 300,
+                          width: MediaQuery.of(context).size.width,
+                          child: this.babyWeek.imageURL == null
+                              ? Image.asset('images/baby.png',fit: BoxFit.fitHeight)
+                              : Image.network(this.babyWeek.imageURL,
+                                  fit: BoxFit.cover)),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Text(this.babyWeek.tipDescription,style: TextStyle(fontWeight: FontWeight.w400,color: Colors.grey[800]))
+                            Text(
+                                this.babyWeek.title == null
+                                    ? "News From This Week"
+                                    : this.babyWeek.title,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey[800])),
+                            Text(
+                                this.babyWeek.tipDescription == null
+                                    ? "Your Baby is indeed a powerhouse of it's own busy growing and developing. At this week your baby is as big as bluebery the retinas and tongue are in their earliest stage of growth, as are the beds for fingernails.The brain and heart are becoming more developed.The nostrils, lungs, hands and feet are also developing rapidly. Moving down, the intestines and liver are also forming. The embryo still sports a small tail which will disappear during the next few weeks"
+                                    : this.babyWeek.tipDescription,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey[800]))
                           ],
                         ),
                       ),
-                      Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Baby's Dimensions on Week ",style: TextStyle(fontWeight: FontWeight.w600)),
-                      Text(this.babyWeek.week.toString()),
-                    ],
-                  ),
-                  SizedBox(height: 6,),
-                  Container(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.orange[100],
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width/3,
-                            decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
-                                  ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  // margin: const EdgeInsets.only(bottom: 10),
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text('Length'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text(this.babyWeek.size.toString() + ' CM'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    // borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width/3,
-                            decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
-                                  ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  // margin: const EdgeInsets.only(bottom: 10),
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text('Weight'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text(this.babyWeek.weight.toString() + ' KG'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    // borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                      SizedBox(height: 10,),
+                      RaisedButton(
+                          child:  Icon(Icons.share),
+                          onPressed: ()
+                          {
+                            final RenderBox box = context.findRenderObject();
+                            Share.share(this.babyWeek.title==null ?"Hello" :this.babyWeek.title,
+                                subject: this.babyWeek.tipDescription == null ?"hi" :this.babyWeek.tipDescription  ,
+                                sharePositionOrigin:
+                                box.localToGlobal(Offset.zero) &
+                                box.size);
+                          },
+                        ),
                     ],
                   ),
                 )
@@ -242,60 +198,61 @@ class _BabyScreenState extends State<BabyScreen> {
                     ),
                   )
                 : Text(''),
-            onTap: () => _onDaySelected(index),
+             onTap: () => _onDaySelected(index),
+            // onTap: () => _onDaySelected(int.parse(index.toString())),
           );
         },
       ),
     );
   }
 
-  buildCountRow() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: blockWidth * 3),
-      height: blockHeight * 15,
-      width: double.infinity,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.lightGreen[100].withOpacity(0.7),
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CustomBannerText(title: "Size"),
-                CustomBannerText(
-                    title: this.babyWeek.size.toString(),
-                    // this.babyWeek.size.toString().toString(),
-                    size: blockWidth * 10),
-                CustomBannerText(title: "cm"),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: blockHeight * 2),
-              child: VerticalDivider(
-                color: Colors.green[700],
-                // width: blockWidth * 2,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CustomBannerText(title: "Weight"),
-                CustomBannerText(
-                    title: this.babyWeek.weight.toString(),
-                    // title: this.babyWeek.weight.toString(),
-                    size: blockWidth * 10),
-                CustomBannerText(title: "g"),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // buildCountRow() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: blockWidth * 3),
+  //     height: blockHeight * 15,
+  //     width: double.infinity,
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.lightGreen[100].withOpacity(0.7),
+  //         borderRadius: BorderRadius.all(
+  //           Radius.circular(15.0),
+  //         ),
+  //       ),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         children: <Widget>[
+  //           Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               CustomBannerText(title: "Size"),
+  //               CustomBannerText(
+  //                   title: this.babyWeek.size.toString(),
+  //                   // this.babyWeek.size.toString().toString(),
+  //                   size: blockWidth * 10),
+  //               CustomBannerText(title: "cm"),
+  //             ],
+  //           ),
+  //           Padding(
+  //             padding: EdgeInsets.symmetric(vertical: blockHeight * 2),
+  //             child: VerticalDivider(
+  //               color: Colors.green[700],
+  //               // width: blockWidth * 2,
+  //             ),
+  //           ),
+  //           Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               CustomBannerText(title: "Weight"),
+  //               CustomBannerText(
+  //                   title: this.babyWeek.weight.toString(),
+  //                   // title: this.babyWeek.weight.toString(),
+  //                   size: blockWidth * 10),
+  //               CustomBannerText(title: "g"),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

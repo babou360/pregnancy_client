@@ -18,7 +18,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      title: "Personal Informations",
+      title: "Taarifa Binafsi",
       showIcon: true,
       updateWidget: UpdatePersonalInfo(this.widget.currentUser),
       cardBody: Column(
@@ -56,26 +56,29 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       this.widget.currentUser.name,
                       softWrap: true,
                       style: TextStyle(
+                        fontFamily: 'Noto',
                           fontSize: blockWidth * 4.5,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black87),
+                          fontWeight: FontWeight.w200,
+                          color: Colors.white),
                     ),
                     SizedBox(height: blockHeight * 0.5),
                     Text(
                       this.widget.currentUser.mobileNumber,
                       style: TextStyle(
-                        fontSize: blockWidth * 4,
+                        fontFamily: 'Noto',
+                        fontSize: blockWidth * 3,
                         fontWeight: FontWeight.w300,
-                        color: Colors.black87,
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: blockHeight * 0.5),
                     Text(
-                      this.widget.currentUser.age.toString() + " Years old",
+                      "miaka " +this.widget.currentUser.age.toString(),
                       style: TextStyle(
+                        fontFamily: 'Noto',
                         fontSize: blockWidth * 4,
                         fontWeight: FontWeight.w300,
-                        color: Colors.black87,
+                        color: Colors.white,
                       ),
                     ),
                   ],

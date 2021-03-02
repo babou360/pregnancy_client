@@ -8,15 +8,17 @@ class CustomBannerText extends StatelessWidget {
   final double size;
   final FontWeight weight;
   final Color color;
-  CustomBannerText({@required this.title, this.size, this.weight, this.color});
+  final String fontFamily;
+  CustomBannerText({@required this.title, this.size, this.weight, this.color,this.fontFamily});
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
       style: TextStyle(
-        color: (color == null) ? Colors.black54 : color,
+        color: (color == null) ? Colors.green : color,
         fontSize: (size == null) ? blockWidth * 4 : size,
-        fontWeight: (weight == null) ? FontWeight.w300 : weight,
+        fontFamily: ( fontFamily == null) ? '' : fontFamily,
+        fontWeight: (weight == null) ? FontWeight.w400 : weight,
       ),
       softWrap: true,
     );

@@ -23,8 +23,9 @@ class CustomTitle extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: Colors.teal[900],
-          fontSize: blockWidth * 10,
+          color: Colors.grey[800],
+          fontFamily: 'Noto',
+          fontSize: blockWidth * 8,
           fontWeight: FontWeight.w600,
         ),
       ),

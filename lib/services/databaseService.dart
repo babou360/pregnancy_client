@@ -22,6 +22,7 @@ class DatabaseService {
         'weight': (user.weight != null) ? user.weight : 0.0,
         'bloodCount': (user.bloodCount != null) ? user.bloodCount : 0.0,
         'dueDate': user.dueDate,
+        'payDate': DateTime.now(),
         'joinedAt': (isNew) ? DateTime.now() : user.joinedAt,
         'renewalDate': (user.renewalDate != null)
             ? user.renewalDate

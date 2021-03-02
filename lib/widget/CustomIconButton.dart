@@ -12,7 +12,7 @@ class CustomIconButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(blockWidth * 2),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.2),
+        color: Colors.green,
         borderRadius: BorderRadius.all(
           Radius.circular(10.0),
         ),
@@ -20,6 +20,7 @@ class CustomIconButton extends StatelessWidget {
       child: InkWell(
         child: Icon(
           icon,
+          color: Colors.white,
           size: blockWidth * 5,
         ),
         onTap: () {

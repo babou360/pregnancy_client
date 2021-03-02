@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pregnancy_tracking_app/Screens/home/homeScreen.dart';
 import 'package:pregnancy_tracking_app/Screens/signIN/signIn.dart';
+import 'package:pregnancy_tracking_app/Screens/signUP/signUp.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 
 class Splash extends StatefulWidget {
@@ -27,7 +28,7 @@ class _SplashState extends State<Splash> {
           return HomeScreen(this.widget.loginUser.mobileNumber);
         }else{
           // return LoginRegister();
-          return SignIn();
+          return SignUp();
         }
       }))
     ));

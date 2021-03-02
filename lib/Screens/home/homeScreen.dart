@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:pregnancy_tracking_app/Screens/baby/baby1.dart';
 import 'package:pregnancy_tracking_app/Screens/mother/mother.dart';
+import 'package:pregnancy_tracking_app/Screens/payment/payment.dart';
+import 'package:pregnancy_tracking_app/Screens/payment/sorry.dart';
 import 'package:pregnancy_tracking_app/Screens/unPaied/UnPaiedScree.dart';
 import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
@@ -33,9 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _currentBody() => [
         TodayScreen(currentUser),
-        BabyScreen(currentUser),
+        Baby1(currentUser),
         MotherNew(currentUser),
-        // MotherScreen(currentUser),
         TopicListScreen(currentUser),
         ProfileScreen(currentUser)
       ];
@@ -56,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    greeting.welcomeGreetings();
+    greeting.welcomeGreetings(context);
     final List<Widget> currentBody = _currentBody();
     return StreamBuilder(
       stream: userStream,
@@ -68,17 +70,20 @@ class _HomeScreenState extends State<HomeScreen> {
           this.currentUser.lastPeriodDate =
               currentUserSnap.data["lastPeriodDate"].toDate();
           this.currentUser.dueDate = currentUserSnap.data['dueDate'].toDate();
+          this.currentUser.payDate = currentUserSnap.data['payDate'].toDate();
           this.currentUser.profileImageURL =
               currentUserSnap.data["profileImage"];
           this.currentUser.weight = currentUserSnap.data["weight"];
           this.currentUser.bloodCount = currentUserSnap.data["bloodCount"];
           this.currentUser.joinedAt = currentUserSnap.data["joinedAt"].toDate();
-          this.currentUser.renewalDate =
-              currentUserSnap.data["renewalDate"].toDate();
+          this.currentUser.renewalDate = currentUserSnap.data["renewalDate"].toDate();
 
-          if (this.currentUser.renewalDate.compareTo(DateTime.now()) >= 0) {
+          // if (this.currentUser.joinedAt.compareTo(DateTime.now()) >= 0) {
+            if (DateTime.now().difference(this.currentUser.joinedAt).inDays <= 10  || (this.currentUser.renewalDate.difference(DateTime.now()).inDays >= -10) && this.currentUser.renewalDate.difference(DateTime.now()).inDays <= 30) {
             return SafeArea(
               child: Scaffold(
+                backgroundColor: Colors.white,
+                // backgroundColor: Colors.grey[800],
                 body: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
@@ -100,9 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 bottomNavigationBar: BubbleBottomBar(
                   opacity: 0.4,
-                  backgroundColor: Colors.green[300],
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(30.0)),
+                  backgroundColor: Colors.green[600],
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
                   currentIndex: _currentIndex,
                   hasInk: false,
                   hasNotch: false,
@@ -111,17 +115,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   inkColor: Colors.black,
                   onTap: changePage,
                   items: <BubbleBottomBarItem>[
-                    BottomBarItem("Today", Icons.today),
-                    BottomBarItem("Baby", Icons.child_care),
-                    BottomBarItem("Mom", Icons.pregnant_woman),
-                    BottomBarItem("Tips", Icons.view_agenda),
-                    BottomBarItem("Profile", Icons.person_outline),
+                    BottomBarItem("Leo", Icons.today),
+                    BottomBarItem("Mtoto", Icons.child_care),
+                    BottomBarItem("Mama", Icons.pregnant_woman),
+                    BottomBarItem("Dondoo", Icons.view_agenda),
+                    BottomBarItem("Wasifu", Icons.person_outline),
                   ],
                 ),
               ),
             );
           } else {
-            return UnPaiedScreen(currentUser);
+            // return UnPaiedScreen(currentUser);
+            return Sorry();
           }
         } else {
           return Scaffold(body: CustomLoading());
@@ -135,24 +140,24 @@ class _HomeScreenState extends State<HomeScreen> {
     String title2;
     switch (currentIndex) {
       case 0:
-        title1 = greeting.welcomeGreetings();
+        title1 = greeting.welcomeGreetings(context);
         title2 = this.currentUser.name.split(" ")[0];
         break;
       case 1:
-        title1 = 'Baby`s';
-        title2 = 'Development';
+        title1 = 'Maendeleo';
+        title2 = 'Ya Mtoto';
         break;
       case 2:
-        title1 = 'Mother`s';
-        title2 = 'Development';
+        title1 = 'Maendeleo';
+        title2 = 'Ya Mama';
         break;
       case 3:
-        title1 = 'Tips';
-        title2 = 'Get more knowledge';
+        title1 = 'Dondoo';
+        title2 = 'Pata Elimu Zaidi';
         break;
       case 4:
-        title1 = 'Profile';
-        title2 = '';
+        title1 = 'Wasifu';
+        title2 = 'Taarifa Binafsi';
         break;
       default:
     }
@@ -163,17 +168,18 @@ class _HomeScreenState extends State<HomeScreen> {
         Text(
           title1,
           style: TextStyle(
-            fontSize: blockWidth * 7,
+            fontFamily: 'CustomIcons',
+            fontSize: blockWidth * 4,
             fontWeight: FontWeight.w200,
-            color: Colors.teal[900],
+            color: Colors.black
           ),
         ),
         Text(
           title2,
           style: TextStyle(
-            fontSize: blockWidth * 4,
-            fontWeight: FontWeight.w400,
-            color: Colors.teal[900],
+            fontSize: blockWidth * 5,
+            fontWeight: FontWeight.w500,
+            color: Colors.green,
           ),
         ),
       ],
@@ -185,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.green[400],
             spreadRadius: 1,
             blurRadius: 5,
           ),
@@ -202,10 +208,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   BottomBarItem(String title, IconData icon) {
     return BubbleBottomBarItem(
-      backgroundColor: Colors.green[100],
+      backgroundColor: Colors.green[200],
       icon: Icon(
         icon,
-        color: Colors.green[100],
+        color: Colors.white,
       ),
       activeIcon: Icon(
         icon,
@@ -214,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       title: Text(
         title,
-        style: TextStyle(color: Colors.white, fontSize: blockWidth * 5),
+        style: TextStyle(color: Colors.white, fontSize: blockWidth * 4),
       ),
     );
   }

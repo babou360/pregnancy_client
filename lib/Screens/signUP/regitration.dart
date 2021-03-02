@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/Screens/imageSlider/slider.dart';
@@ -25,8 +26,10 @@ class _RegistrationState extends State<Registration> {
   final ageController = TextEditingController();
   Stream userStream;
   DateTime pickedDate;
-  bool _isDateSelect = false, isNew = true;
+  bool _isDateSelect = false,
+  isNew = true;
   String _errorText = '';
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -34,10 +37,16 @@ class _RegistrationState extends State<Registration> {
     userStream = _databaseService.getUser(this.widget.loginUser.mobileNumber);
   }
 
+  
+
   onClickRegister() {
+    setState(() {
+      isLoading = true;
+    });
     if (!_isDateSelect) {
       setState(() {
-        _errorText = 'Please enter last period date';
+        _errorText = 'Tafadhali ingiza tarehe ya mwisho ya hedhi';
+        // _errorText = 'Please enter last period date';
       });
     } else {
       this.widget.loginUser.name = this.nameController.text;
@@ -46,6 +55,9 @@ class _RegistrationState extends State<Registration> {
       this.widget.loginUser.dueDate =
           this.widget.loginUser.lastPeriodDate.add(Duration(days: 280));
       this._databaseService.createUser(this.widget.loginUser, isNew);
+      setState(() {
+        isLoading = false;
+      });
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -102,7 +114,7 @@ class _RegistrationState extends State<Registration> {
                       left: 0,
                     ),
                     CustomTitle(
-                      title: "Register",
+                      title: isNew? "Register": "Login",
                       top: blockHeight * 7,
                       left: blockWidth * 15,
                     ),
@@ -116,87 +128,91 @@ class _RegistrationState extends State<Registration> {
                           ),
                           Form(
                             key: _formKey,
-                            child: Container(
+                            child: isNew
+                            ? Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: blockWidth * 15),
                               child: Column(
                                 children: [
-                                  CustomInputField(
-                                    hintText: "Name",
-                                    isPass: false,
-                                    fieldType: "text",
-                                    prefixIcon: Icons.keyboard,
-                                    fieldController: nameController,
-                                  ),
+                                   CustomInputField(
+                                          hintText: "Jina",
+                                          isPass: false,
+                                          fieldType: "text",
+                                          prefixIcon: Icons.keyboard,
+                                          fieldController: nameController,
+                                        ),
                                   SizedBox(height: blockHeight * 2),
-                                  CustomInputField(
-                                    hintText: "age",
-                                    isPass: false,
-                                    fieldType: "text",
-                                    prefixIcon: Icons.keyboard,
-                                    fieldController: ageController,
-                                    inputType: TextInputType.number,
-                                  ),
+                                   CustomInputField(
+                                          hintText: "Umri",
+                                          isPass: false,
+                                          fieldType: "text",
+                                          prefixIcon: Icons.keyboard,
+                                          fieldController: ageController,
+                                          inputType: TextInputType.number,
+                                        ),
                                   SizedBox(height: blockHeight * 2),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _pickDate(context);
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 55.0,
-                                      width: double.infinity,
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                          ),
-                                          elevation: 0,
-                                          color: Colors.green[50],
-                                          child: Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 10.0),
-                                                child: Icon(
-                                                  Icons.calendar_today,
-                                                  color: Colors.black54,
+                                   InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              _pickDate(context);
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 55.0,
+                                            width: double.infinity,
+                                            child: SizedBox(
+                                              width: double.infinity,
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                ),
+                                                elevation: 0,
+                                                color: Colors.green[50],
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 10.0),
+                                                      child: Icon(
+                                                        Icons.calendar_today,
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 10.0),
+                                                      child: Text(
+                                                        () {
+                                                          if (!_isDateSelect) {
+                                                            return "Tarehe ya mwisho ya hedhi";
+                                                            // return "Last period start date";
+                                                          } else {
+                                                            return pickedDate
+                                                                    .year
+                                                                    .toString() +
+                                                                " - " +
+                                                                pickedDate.month
+                                                                    .toString() +
+                                                                " - " +
+                                                                pickedDate.day
+                                                                    .toString();
+                                                          }
+                                                        }(),
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Colors.black54,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 10.0),
-                                                child: Text(
-                                                  () {
-                                                    if (!_isDateSelect) {
-                                                      return "Last period start date";
-                                                    } else {
-                                                      return pickedDate.year
-                                                              .toString() +
-                                                          " - " +
-                                                          pickedDate.month
-                                                              .toString() +
-                                                          " - " +
-                                                          pickedDate.day
-                                                              .toString();
-                                                    }
-                                                  }(),
-                                                  style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.black54,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
                                   Text(
                                     _errorText,
                                     style: TextStyle(
@@ -204,11 +220,14 @@ class _RegistrationState extends State<Registration> {
                                   ),
                                 ],
                               ),
-                            ),
+                            )
+                            :SizedBox.shrink()
                           ),
                           SizedBox(height: blockHeight * 3),
                           CustomButton(
-                            title: "Register",
+                            title: isNew
+                                ? isLoading? CircularProgressIndicator(): 'Sign Up'
+                                : isLoading ? CircularProgressIndicator():"Sign In",
                             width: blockWidth * 70,
                             bgColor: Colors.green[400],
                             textColor: Colors.white,
@@ -245,4 +264,3 @@ class _RegistrationState extends State<Registration> {
     }
   }
 }
-

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:pregnancy_tracking_app/Screens/signUP/regitration.dart';
 import 'package:pregnancy_tracking_app/Screens/home/homeScreen.dart';
+import 'package:pregnancy_tracking_app/Screens/signUP/signUp.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/shared/timeCalculate.dart';
 
@@ -93,7 +94,8 @@ class AuthService {
   signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.pop(context);
-    Navigator.pushReplacementNamed(context, '/welcomePage');
+    Navigator.push(context, MaterialPageRoute(builder: (_) => SignUp()));
+    // Navigator.pushReplacementNamed(context, '/welcomePage');
   }
 
   Future<FirebaseUser> checkSignIn() async {

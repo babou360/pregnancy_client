@@ -35,6 +35,17 @@ dependencies:
   indexed_list_view: ^1.0.9
   bot_toast: ^3.0.5
   charts_flutter: ^0.9.0
+  intl: ^0.16.1
+  share: ^0.6.5+4
+  flutterwave: ^0.0.2
+  webview_flutter: ^1.0.7
+  country_code_picker: ^1.7.0
+  flutter_colorpicker: ^0.3.5
+  numberpicker: ^1.3.0
+  url_launcher: ^5.7.10
+  cached_network_image: ^2.5.0
+  font_awesome_flutter: ^8.11.0
+  modal_bottom_sheet: ^1.0.0+1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -59,6 +70,41 @@ flutter:
     - family:  CustomIcons
       fonts:
         - asset: fonts/CustomIcons.ttf
+    
+    - family:  Anton-Regular
+      fonts:
+        - asset: fonts/Anton-Regular.ttf
+
+    - family:  Righteous
+      fonts:
+        - asset: fonts/Righteous.ttf
+
+    - family:  SquadaOne
+      fonts:
+        - asset: fonts/SquadaOne.ttf
+        - weight: 500
+
+    - family:  Economica
+      fonts:
+        - asset: fonts/Economica-Bold.ttf
+        - asset: fonts/Economica-Regular.ttf
+        - weight: 500
+
+    - family:  nova
+      fonts:
+        - asset: fonts/nova.ttf
+
+    - family:  Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+    
+    - family:  Noto
+      fonts:
+        - asset: fonts/NotoSansTC-Medium.otf
+
+    - family:  kafeez
+      fonts:
+        - asset: fonts/kafeez.ttf
 
   # To add assets to your application, add an assets section, like this:
   assets:

@@ -1,14 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
-import 'package:pregnancy_tracking_app/models/babyModel.dart';
 import 'package:pregnancy_tracking_app/models/motherModel.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/models/pregnancy.dart';
 import 'package:pregnancy_tracking_app/services/userDatabaseService.dart';
 import 'package:pregnancy_tracking_app/widget/CustomBannerText.dart';
 import 'package:pregnancy_tracking_app/widget/CustomLoading.dart';
-import 'package:pregnancy_tracking_app/widget/ImageView.dart';
-import 'package:pregnancy_tracking_app/widget/tipContainer.dart';
+import 'package:pregnancy_tracking_app/widget/texts.dart';
+import 'package:share/share.dart';
 
 class MotherNew extends StatefulWidget {
   User currentUser;
@@ -24,14 +24,15 @@ class _MotherNewState extends State<MotherNew> {
   Pregnancy pregnancy = Pregnancy();
   UserDatabaseService _userDatabaseService = UserDatabaseService();
   int _selectedIndex;
-  Stream motherMonthStram;
+  Future motherMonthStram;
   Mother mother = Mother();
 
   @override
   void initState() {
     super.initState();
     pregnancy.updateValue(this.widget.currentUser);
-    _selectedIndex = pregnancy.months;
+    // _selectedIndex = pregnancy.months;
+    _selectedIndex = pregnancy.weeks;
     motherMonthStram = _userDatabaseService.getMomMonth(_selectedIndex);
   }
 
@@ -44,143 +45,170 @@ class _MotherNewState extends State<MotherNew> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: motherMonthStram,
-      builder: (context, currentMotherSnap) {
-        if (currentMotherSnap.hasData && currentMotherSnap.data.exists) {
-          this.mother.size = int.parse(currentMotherSnap.data["length"]);
-          this.mother.weight = int.parse(currentMotherSnap.data["weight"]);
-          this.mother.imageURL = currentMotherSnap.data["image"];
-          this.mother.tipDescription = currentMotherSnap.data["description"];
-          this.mother.week = int.parse(currentMotherSnap.data["month"]);
-        }
-        if (currentMotherSnap.connectionState == ConnectionState.waiting) {
-          return CustomLoading();
-        }
-        return SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: blockHeight * 1),
-                buildMonthRow(),
-                Card(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 300,
-                        width: MediaQuery.of(context).size.width,
-                       child: Image.network(this.mother.imageURL,fit: BoxFit.cover)
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text(this.mother.tipDescription,style: TextStyle(fontWeight: FontWeight.w400,color: Colors.grey[800]))
-                          ],
+    return  SingleChildScrollView(
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              // height: MediaQuery.of(context).size.height / 5,
+              child: buildMonthRow(),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 1.5,
+              child: FutureBuilder(
+                future: motherMonthStram,
+                builder: (context, currentBabySnap) {
+                  if (!currentBabySnap.hasData) {
+                    Center(
+                      child: Text('No Data '),
+                    );
+                  }
+                  if (currentBabySnap.hasData && currentBabySnap.data.length < 1) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        color: Colors.black12,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 350,
+                                width: MediaQuery.of(context).size.width,
+                                child: Image.asset("images/preg.jpg",fit: BoxFit.cover),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Maendeleo ya Mama",
+                                    style: TextStyle( fontSize: 17, fontFamily: 'Noto', color: Colors.green[400])),
+                                    SizedBox(height: 5,),
+                                    Text(Texts().mother,style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: 'Economica',
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[800]
+                                      )),
+                                    SizedBox(height: 5,),
+                                    Divider(color: Colors.green,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Maendeleo ya Mama',
+                                         style: TextStyle( fontSize: 15,fontWeight: FontWeight.w600,  color: Colors.green[400],fontFamily: 'Noto')),
+                                        GestureDetector(
+                                          onTap: (){
+                                            Share.share(Texts().mother,subject:'Good Day',);
+                                          },
+                                          child: Icon(Icons.share,color: Colors.green),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Baby's Dimensions on Week ",style: TextStyle(fontWeight: FontWeight.w600)),
-                      Text(this.mother.week.toString()),
-                    ],
-                  ),
-                  SizedBox(height: 6,),
-                  Container(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.orange[100],
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width/3,
-                            decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
+                    );
+                    // return Center(
+                    //   child: Text('OOOOPS SORRY NO DATA',style: TextStyle(fontWeight: FontWeight.w500)),
+                    // );
+                  }
+                  if (currentBabySnap.hasData) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        // color: Colors.black26,
+                          height: MediaQuery.of(context).size.height,
+                          child: ListView.builder(
+                              itemCount: currentBabySnap.data.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: Container(
+                                    color: Colors.black12,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: 5,),
+                                          Container(width: MediaQuery.of(context).size.width,
+                                              height: 300,
+                                              child: CachedNetworkImage(
+                                                imageUrl: currentBabySnap.data[index]['image'],fit: BoxFit.fill,
+                                                placeholder: (context, url) => Image.asset('images/place4.png',fit: BoxFit.cover),
+                                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                            ),
+                                           ),
+                                          SizedBox(height: 7),
+                                          Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: Column(mainAxisAlignment:MainAxisAlignment.center,
+                                              crossAxisAlignment:CrossAxisAlignment.start,
+                                              children: [
+                                                Text( currentBabySnap.data[index]['title'],
+                                                    style: TextStyle(
+                                                      fontFamily: 'Noto',
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Colors.green[400])),
+                                                SizedBox( height: 7),
+                                                Text( currentBabySnap.data[index]['description'],
+                                                    style: TextStyle(
+                                                      fontFamily: 'Economica',
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Colors.grey[800])),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(height: 7),
+                                          Divider(color: Colors.green,),
+                                          Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment:CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Maendeleo ya Mama Wiki ${  currentBabySnap.data[index]['month']}",
+                                                    style: TextStyle(
+                                                        fontFamily: 'Noto',
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Colors.green[400])),
+                                                GestureDetector(
+                                                  onTap: (){
+                                                    Share.share(currentBabySnap.data[index]['description'],subject:currentBabySnap.data[index]['title'],);
+                                                  },
+                                                  child: Icon(Icons.share,color: Colors.green),
+                                                )
+                                                ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  // margin: const EdgeInsets.only(bottom: 10),
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text('Length'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text(this.mother.size.toString() + ' CM'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    // borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width/3,
-                            decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
-                                  ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  // margin: const EdgeInsets.only(bottom: 10),
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text('Weight'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 50,
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Text(this.mother.weight.toString() + ' KG'),
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    // borderRadius: BorderRadius.all(Radius.circular(20))
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                    ],
-                  ),
-                )
-                // SizedBox(height: blockHeight * 2),
-                // ImageView(imageURL: this.mother.imageURL),
-                // SizedBox(height: blockHeight * 2.5),
-                // buildCountRow(),
-                // SizedBox(height: blockHeight * 1),
-                // TipContainer("fromBaby", this.mother.tipDescription,
-                //     this.mother.week),
-                // SizedBox(height: blockHeight * 2),
-              ],
-            ),
-          ),
-        );
-      },
+                                );
+                              })),
+                    );
+                  }
+                  if (currentBabySnap.connectionState ==
+                      ConnectionState.waiting) {
+                    return CustomLoading();
+                  } else {
+                    return Text('No Data');
+                  }
+                },
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -189,7 +217,7 @@ class _MotherNewState extends State<MotherNew> {
       height: blockHeight * 6,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 11,
+        itemCount: 41,
         shrinkWrap: true,
         addAutomaticKeepAlives: false,
         itemBuilder: (context, index) {
@@ -207,7 +235,7 @@ class _MotherNewState extends State<MotherNew> {
                       child: (_selectedIndex == index)
                           ? Container(
                               decoration: BoxDecoration(
-                                color: Colors.green[100],
+                                color: Colors.green[400],
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
@@ -217,25 +245,18 @@ class _MotherNewState extends State<MotherNew> {
                                     Text(
                                       index.toString(),
                                       style: TextStyle(
-                                        color: Colors.black87,
+                                        color: Colors.white,
                                         fontSize: blockWidth * 4,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    // Text("Month",
-                                    //     style: TextStyle(
-                                    //       color: Colors.black87,
-                                    //       fontSize: blockWidth * 2.5,
-                                    //       fontWeight: FontWeight.w500,
-                                    //     )),
                                   ],
                                 ),
                               ),
                             )
-                          : Text(
-                              index.toString(),
+                          : Text(index.toString(),
                               style: TextStyle(
-                                color: Colors.green[800],
+                                color: Colors.green,
                                 fontSize: blockWidth * 4,
                                 fontWeight: FontWeight.w400,
                               ),

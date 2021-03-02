@@ -5,8 +5,8 @@ import 'package:pregnancy_tracking_app/Screens/signUP/mobileVerf.dart';
 import 'package:pregnancy_tracking_app/shared/timeCalculate.dart';
 import 'package:pregnancy_tracking_app/widget/CustomButton.dart';
 import 'package:pregnancy_tracking_app/widget/CustomDesignUI.dart';
-import 'package:pregnancy_tracking_app/widget/CustomInputField.dart';
 import 'package:pregnancy_tracking_app/widget/CustomTitle.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -16,6 +16,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final mobileController = TextEditingController();
+  String _code;
 
   User loginUser = User();
   TimeCalculate shared = TimeCalculate();
@@ -24,6 +25,13 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     double blockHeight = SizeConfig.safeBlockVertical;
     double blockWidth = SizeConfig.safeBlockHorizontal;
+
+    void _onCountryChange(CountryCode countryCode) {
+      setState(() {
+        _code = countryCode.toString();
+      });
+      print("New Country selected: " + countryCode.toString());
+    }
 
     mobileVerify() {
       if (_formKey.currentState.validate()) {
@@ -67,7 +75,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 SizedBox(height: blockHeight * 10),
                 CustomTitle(
-                  title: "Sign Up",
+                  title: "Sign In",
                   top: blockHeight * 7,
                   right: blockWidth * 10,
                 ),
@@ -81,20 +89,69 @@ class _SignUpState extends State<SignUp> {
                       ),
                       SizedBox(height: blockHeight * 10),
                       Form(
-                        key: _formKey,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: blockWidth * 15),
-                          child: CustomInputField(
-                            hintText: "Phone Number",
-                            isPass: false,
-                            fieldType: "mobile",
-                            prefixIcon: Icons.phone_android,
-                            fieldController: mobileController,
-                            inputType: TextInputType.number,
-                          ),
-                        ),
-                      ),
+                          key: _formKey,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                // color: Colors.grey[800],
+                                color: Colors.green[200],
+                                borderRadius: BorderRadius.all(Radius.circular(20))
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width / 4,
+                                      child: CountryCodePicker(
+                                        textStyle: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey[800]
+                                        ),
+                                        onChanged: _onCountryChange,
+                                        initialSelection: 'TZ',
+                                        favorite: ['+255', 'TZ'],
+                                        showCountryOnly: false,
+                                        showOnlyCountryWhenClosed: false,
+                                        alignLeft: false,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width/1.7,
+                                      child: TextFormField(
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey[800],
+                                          fontFamily: '',
+                                        ),
+                                        controller: mobileController,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) {
+                                            return 'Phone Cannot be empty';
+                                          } else if (value.startsWith('0')) {
+                                            return 'Cannot start with 0';
+                                          } else if (value.length < 9) {
+                                            return 'Maxmum 9 Numbers';
+                                          } else if (value.length > 9) {
+                                            return 'Minimum 9 numbers';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        decoration: InputDecoration(
+                                          // labelText: 'Phone Number',
+                                          hintText: 'Phone Number',
+                                          border: InputBorder.none
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )),
                       SizedBox(height: blockHeight * 3),
                       CustomButton(
                         title: "Next",
@@ -117,7 +174,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   setMobileNumber(String phoneNumber) {
-    phoneNumber = "+255" + phoneNumber;
+    phoneNumber = _code == null? '+255${(phoneNumber)}': _code + phoneNumber;
     return phoneNumber;
   }
 }

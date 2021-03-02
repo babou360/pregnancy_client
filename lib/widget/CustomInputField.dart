@@ -96,8 +96,15 @@ class _CustomInputFieldState extends State<CustomInputField> {
   String validateMobile(String value) {
     if (value.isEmpty) {
       return 'Phone Number is required';
-      // } else if () {
-// mobile lnght validate
+    }
+    if (value.length > 9) {
+      return 'Cannot exceed 9';
+    }
+    if (value.startsWith("0")) {
+      return 'Dont start with 0';
+    }
+    if (value.length < 9) {
+      return 'Number cannot be less than 9';
     } else {
       return null;
     }

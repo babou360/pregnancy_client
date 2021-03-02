@@ -5,7 +5,7 @@ import 'package:pregnancy_tracking_app/models/content.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/widget/CustomBannerText.dart';
 import 'package:pregnancy_tracking_app/widget/CustomIconButton.dart';
-import 'package:pregnancy_tracking_app/widget/ImageView.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TopicView extends StatefulWidget {
   User currentUser = User();
@@ -23,6 +23,7 @@ class _TopicViewState extends State<TopicView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -60,7 +61,7 @@ class _TopicViewState extends State<TopicView> {
                         child: CircleAvatar(
                           backgroundImage:
                               (this.widget.currentUser.profileImageURL == null)
-                                  ? AssetImage("images/profile.jpg")
+                                  ? AssetImage("images/defaultProfile.png")
                                   : NetworkImage(
                                       this.widget.currentUser.profileImageURL,
                                     ),
@@ -69,45 +70,73 @@ class _TopicViewState extends State<TopicView> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: blockWidth * 2.5,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    // color: Colors.black26,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(6),
+                          child: CustomBannerText(
+                            fontFamily: '',
+                            title: this.widget.mainTopic.title,
+                            size: blockWidth * 5,
+                            weight: FontWeight.w600,
+                            color: Colors.green,
+                          ),
                         ),
-                        child: CustomBannerText(
-                          title: this.widget.mainTopic.title,
-                          size: blockWidth * 7,
-                          weight: FontWeight.w600,
-                          color: Colors.green[900],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 6),
+                          child: CustomBannerText(
+                              fontFamily: '',
+                              title: this.widget.mainTopic.subtitle,
+                              size: blockWidth * 2.5,
+                              weight: FontWeight.w400,
+                              color: Colors.green[400],
+                            ),
                         ),
-                      ),
-                      SizedBox(height: blockHeight * 2),
-                      ImageView(imageURL: this.widget.mainTopic.imageURL),
-                      SizedBox(height: blockHeight * 2),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: blockWidth * 3,
+                        SizedBox(height: blockHeight * 2),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 300,
+                            width: MediaQuery.of(context).size.width,
+                            child: CachedNetworkImage(
+                                imageUrl: this.widget.mainTopic.imageURL,fit: BoxFit.fill,
+                                placeholder: (context, url) => Image.asset('images/place4.png',fit: BoxFit.cover),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                             ),
+                           ),
                         ),
-                        child: CustomBannerText(
-                          title: this.widget.mainTopic.description,
-                          size: blockWidth * 4.5,
-                          weight: FontWeight.w400,
-                          color: Colors.green[900],
+                        SizedBox(height: blockHeight * 2),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: blockWidth * 3,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: CustomBannerText(
+                              title: this.widget.mainTopic.description,
+                              size: blockWidth * 3.5,
+                              fontFamily: 'Economica',
+                              weight: FontWeight.w600,
+                              color: Colors.green[600],
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: blockHeight * 1),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.green[200],
-                  indent: blockWidth * 3,
-                  endIndent: blockWidth * 3,
-                ),
+                // SizedBox(height: blockHeight * 1),
+                // Divider(
+                //   thickness: 1.0,
+                //   color: Colors.green[200],
+                //   indent: blockWidth * 3,
+                //   endIndent: blockWidth * 3,
+                // ),
                 SizedBox(height: blockHeight * 1),
                 Column(
                   children: <Widget>[

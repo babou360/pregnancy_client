@@ -55,44 +55,58 @@ class _TopicListScreenState extends State<TopicListScreen> {
             Content mainTopic = Content();
             mainTopic.id = document["id"];
             mainTopic.title = document["title"];
+            mainTopic.subtitle = document["subtitle"];
             mainTopic.description = document["description"];
-            mainTopic.imageURL = document["imageURL"];
-            return Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: blockHeight * 0.75, horizontal: blockWidth * 4),
-              width: double.infinity,
+            mainTopic.imageURL = document["image"];
+            return GestureDetector(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        TopicView(mainTopic, this.widget.currentUser),
+                  ),
+                );
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: blockWidth * 3, vertical: blockHeight * 2),
-                decoration: BoxDecoration(
-                  color: Colors.lightGreen[100].withOpacity(0.7),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15.0),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Container(
-                      width: blockWidth * 65,
-                      child: CustomBannerText(
-                        title: mainTopic.title,
-                        size: blockWidth * 5,
-                        weight: FontWeight.w300,
-                      ),
+                    vertical: blockHeight * 0.75, horizontal: blockWidth * 4),
+                width: double.infinity,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: blockWidth * 3, vertical: blockHeight * 2),
+                  decoration: BoxDecoration(
+                    color: Colors.green[600].withOpacity(.9),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
                     ),
-                    CustomIconButton(
-                        icon: Icons.arrow_forward_ios,
-                        callback: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  TopicView(mainTopic, this.widget.currentUser),
-                            ),
-                          );
-                        })
-                  ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        width: blockWidth * 65,
+                        child: CustomBannerText(
+                          fontFamily: 'Roboto',
+                          color: Colors.white,
+                          title: mainTopic.title,
+                          size: blockWidth * 5,
+                          weight: FontWeight.w300,
+                        ),
+                      ),
+                      CustomIconButton(
+                          icon: Icons.arrow_forward_ios,
+                          callback: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    TopicView(mainTopic, this.widget.currentUser),
+                              ),
+                            );
+                          })
+                    ],
+                  ),
                 ),
               ),
             );

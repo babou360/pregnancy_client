@@ -33,7 +33,7 @@ class _UpdatePregInfoState extends State<UpdatePregInfo> {
         _errorText = 'Please enter valid Date';
       });
     } else {
-      this.widget.currentUser.dueDate = this.pickedDate;
+      this.widget.currentUser.lastPeriodDate = this.pickedDate;
       this._databaseService.createUser(this.widget.currentUser, false);
 
       Navigator.pop(context);

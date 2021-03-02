@@ -99,14 +99,15 @@ class _UpdatePersonalInfoState extends State<UpdatePersonalInfo> {
 
     return AlertDialog(
       scrollable: true,
-      backgroundColor: Colors.lightGreen[50],
+      // backgroundColor: Colors.grey[800],
+      // backgroundColor: Colors.lightGreen[50],
       content: Container(
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               CustomBannerText(
-                title: "Personal Informations",
+                title: "Taarifa Binafsi",
                 size: blockWidth * 5,
                 weight: FontWeight.w300,
               ),
@@ -154,7 +155,7 @@ class _UpdatePersonalInfoState extends State<UpdatePersonalInfo> {
                 fieldType: "text",
                 fieldController: nameController,
                 prefixIcon: Icons.person,
-                fillColor: Colors.green[100],
+                fillColor: Colors.green[400],
               ),
               SizedBox(height: blockHeight * 2),
               CustomInputField(
@@ -164,7 +165,7 @@ class _UpdatePersonalInfoState extends State<UpdatePersonalInfo> {
                 fieldController: ageController,
                 prefixIcon: Icons.keyboard,
                 inputType: TextInputType.number,
-                fillColor: Colors.green[100],
+                fillColor: Colors.green[400],
               ),
               SizedBox(height: blockHeight * 2),
               Row(

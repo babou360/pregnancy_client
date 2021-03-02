@@ -7,6 +7,7 @@ class User {
   DateTime dueDate;
   DateTime joinedAt;
   DateTime renewalDate;
+  DateTime payDate;
   double weight;
   double bloodCount;
   List<Map<String, dynamic>> subsList;

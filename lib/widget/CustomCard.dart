@@ -30,7 +30,8 @@ class _CustomCardState extends State<CustomCard> {
         padding: EdgeInsets.symmetric(
             horizontal: blockWidth * 4, vertical: blockHeight * 1),
         decoration: BoxDecoration(
-          color: Colors.lightGreen[100].withOpacity(0.7),
+          color: Colors.green[600].withOpacity(.9),
+          // color: Colors.lightGreen[100].withOpacity(0.7),
           borderRadius: BorderRadius.all(
             Radius.circular(15.0),
           ),
@@ -44,9 +45,10 @@ class _CustomCardState extends State<CustomCard> {
                 Text(
                   this.widget.title,
                   style: TextStyle(
-                    fontWeight: FontWeight.w300,
+                    fontFamily: '',
+                    fontWeight: FontWeight.w400,
                     fontSize: blockWidth * 5,
-                    color: Colors.red[900],
+                    color: Colors.grey[800],
                   ),
                 ),
                 (this.widget.showIcon == true)
