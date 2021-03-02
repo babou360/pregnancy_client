@@ -427,9 +427,9 @@ class _TodayScreenState extends State<TodayScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Siku',style: TextStyle(fontSize: 20,fontFamily: '', fontWeight: FontWeight.w400, color: Colors.grey[800])),
+                Text('Siku',style: TextStyle(fontSize: 20,fontFamily: '', fontWeight: FontWeight.w300, color: Colors.grey[800])),
                 CustomBannerText(
-                  fontFamily: 'Noto',
+                  fontFamily: '',
                   color: Colors.white,
                   title: pregnancy.days.toString(),
                   size: blockWidth * 6,
@@ -446,7 +446,7 @@ class _TodayScreenState extends State<TodayScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Wiki',style: TextStyle(fontFamily: '', fontSize: 20,color: Colors.grey[800])),
+                Text('Wiki',style: TextStyle(fontFamily: '', fontSize: 20,color: Colors.grey[800],fontWeight: FontWeight.w300)),
                 // CustomBannerText(title: "Week"),
                 CustomBannerText(
                   fontFamily: 'Noto',
@@ -466,7 +466,7 @@ class _TodayScreenState extends State<TodayScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Mwezi',style: TextStyle(fontFamily: '',fontSize: 20,color: Colors.grey[800])),
+                Text('Mwezi',style: TextStyle(fontFamily: '',fontSize: 20,color: Colors.grey[800],fontWeight: FontWeight.w300)),
                 // CustomBannerText(title: "Month"),
                 CustomBannerText(
                   fontFamily: 'Noto',
@@ -506,7 +506,7 @@ class _TodayScreenState extends State<TodayScreen> {
                         text: 'Tarehe ya Kujifungua ',
                         style: TextStyle(
                           fontFamily: '',
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w300,
                           fontSize: blockWidth * 5,
                           color: Colors.grey[800],
                         ),

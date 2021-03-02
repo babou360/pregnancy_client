@@ -162,7 +162,7 @@ class _BloodState extends State<Blood> {
                 builder: (BuildContext context) => AlertDialog(
         title: Center(
           child: const Text('BLOOD COUNT',
-          style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white,fontFamily: 'Noto',fontSize:20 )),
+          style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green,fontFamily: 'Noto',fontSize:20 )),
         ),
         content: Material(
           child: SingleChildScrollView(
@@ -183,7 +183,7 @@ class _BloodState extends State<Blood> {
                           maxLines: 1,
                           cursorColor: Colors.green,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.green,
                               fontFamily: 'CustomIcons',
                               fontWeight: FontWeight.w500,
                               decorationColor: Colors.white),
@@ -224,7 +224,7 @@ class _BloodState extends State<Blood> {
                           maxLines: 1,
                           cursorColor: Colors.green,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.green,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'CustomIcons',
                               decorationColor: Colors.white),
@@ -363,12 +363,12 @@ class _BloodState extends State<Blood> {
         if (!snapshot.hasData) {
           return Center(
             child: Text('Jaza Blood Count Kuona Chati',
-            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white,fontFamily: 'Noto')),
+            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.grey[800],fontFamily: 'Noto')),
           );
         }else if(snapshot.data.documents.length< 1) {
           return Center(
             child: Text('Jaza Blood Count Kuona Chati',
-            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white,fontFamily: 'Noto')),
+            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.grey[800],fontFamily: 'Noto')),
           );
         } else {
           List<Sales> sales = snapshot.data.documents
@@ -414,12 +414,12 @@ class _BloodState extends State<Blood> {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: Text('Futa Data',
-                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontFamily: 'Noto',fontSize: 20)),
+                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontFamily: 'Noto',fontSize: 20)),
                       content: Text('Una Uhakika?',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.green[400],fontFamily: 'Noto')),
                       actions: [
                         FlatButton(
                           onPressed:()=> Navigator.pop(context),
-                          child: Text('Hapana',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontFamily: 'Noto'))),
+                          child: Text('Hapana',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontFamily: 'Noto'))),
                           FlatButton(
                           onPressed:(){
                             Firestore
@@ -437,7 +437,7 @@ class _BloodState extends State<Blood> {
                               }
                             });
                           },
-                          child: Text('Ndio',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontFamily: 'Noto')))
+                          child: Text('Ndio',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontFamily: 'Noto')))
                       ],
                     ));
                   },

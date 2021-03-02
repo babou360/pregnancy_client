@@ -160,7 +160,7 @@ class _DimensionsState extends State<Dimensions> {
         builder: (BuildContext context) => AlertDialog(
         title: Center(
           child: const Text('UZITO',
-          style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white,fontFamily: 'Noto',fontSize:20 )),
+          style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green,fontFamily: 'Noto',fontSize:20 )),
         ),
         content: Material(
           child: SingleChildScrollView(
@@ -181,7 +181,7 @@ class _DimensionsState extends State<Dimensions> {
                           maxLines: 1,
                           cursorColor: Colors.green,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.green,
                               fontFamily: 'CustomIcons',
                               fontWeight: FontWeight.w500,
                               decorationColor: Colors.white),
@@ -222,7 +222,7 @@ class _DimensionsState extends State<Dimensions> {
                           maxLines: 1,
                           cursorColor: Colors.green,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.green,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'CustomIcons',
                               decorationColor: Colors.white),
@@ -361,12 +361,12 @@ class _DimensionsState extends State<Dimensions> {
         if (!snapshot.hasData) {
           return Center(
             child: Text('Java Uzito kuona Chati',
-            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white,fontFamily: 'Noto')),
+            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.grey[800],fontFamily: 'Noto')),
           );
         }else if(snapshot.data.documents.length< 1) {
           return Center(
             child: Text('Java Uzito kuona Chati',
-            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white,fontFamily: 'Noto')),
+            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.grey[800],fontFamily: 'Noto')),
           );
         } else {
           List<Sales> sales = snapshot.data.documents
@@ -412,12 +412,12 @@ class _DimensionsState extends State<Dimensions> {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: Text('Futa Data',
-                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontFamily: 'Noto',fontSize: 20)),
+                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontFamily: 'Noto',fontSize: 20)),
                       content: Text('Una Uhakika?',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.green[400],fontFamily: 'Noto')),
                       actions: [
                         FlatButton(
                           onPressed:()=> Navigator.pop(context),
-                          child: Text('Hapana',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontFamily: 'Noto'))),
+                          child: Text('Hapana',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontFamily: 'Noto'))),
                           FlatButton(
                           onPressed:(){
                             Firestore
@@ -435,7 +435,7 @@ class _DimensionsState extends State<Dimensions> {
                               }
                             });
                           },
-                          child: Text('Ndio',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontFamily: 'Noto')))
+                          child: Text('Ndio',style: TextStyle(fontWeight: FontWeight.w500,color:Colors.grey[800],fontFamily: 'Noto')))
                       ],
                     ));
                   },
