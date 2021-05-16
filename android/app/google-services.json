@@ -14,6 +14,88 @@
       },
       "oauth_client": [
         {
+          "client_id": "730511684926-48imhn9rjpd3f7lcretedgnlv5pf0ace.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.babou360.pregnancy",
+            "certificate_hash": "1126e92ef934d6809a281490c7c4e7305a990c29"
+          }
+        },
+        {
+          "client_id": "730511684926-4bpo3qp0nkour5c5g2jccbo43pqckvni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.babou360.pregnancy",
+            "certificate_hash": "1aab6007b2ddb98648f62ed1d24e2142d646c0ba"
+          }
+        },
+        {
+          "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq-kAx4Q6PB278-fThtnU6PycQ9701xNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730511684926:android:e06d6cc0f46dedb5aae86f",
+        "android_client_info": {
+          "package_name": "com.example.mama_k_app_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730511684926-i24unt1s3mnri4761peha31la3kadnti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mama_k_app_admin",
+            "certificate_hash": "1aab6007b2ddb98648f62ed1d24e2142d646c0ba"
+          }
+        },
+        {
+          "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq-kAx4Q6PB278-fThtnU6PycQ9701xNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730511684926:android:9e24fdfbe4afa295aae86f",
+        "android_client_info": {
+          "package_name": "com.example.mamak"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "730511684926-qh9caggfm4vpuboh456i6pm9sg04epfa.apps.googleusercontent.com",
           "client_type": 3
         }

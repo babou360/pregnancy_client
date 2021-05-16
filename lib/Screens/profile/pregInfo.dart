@@ -7,7 +7,7 @@ import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:intl/intl.dart';
 
 class PregnancyInfo extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   PregnancyInfo(this.currentUser);
   @override
   _PregnancyInfoState createState() => _PregnancyInfoState();
@@ -33,14 +33,41 @@ class _PregnancyInfoState extends State<PregnancyInfo> {
       cardBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          
           SizedBox(height: blockHeight * 2),
+          RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Wiki ',
+                  style: TextStyle(
+                    fontFamily: '',
+                    fontWeight: FontWeight.w300,
+                    fontSize: blockWidth * 5,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                TextSpan(
+                  text: ' ' +
+                  '${pregnancy.weeks<=1 ?pregnancy.weeks:pregnancy.weeks-1}',
+                  style: TextStyle(
+                    fontFamily: '',
+                    fontWeight: FontWeight.w400,
+                    fontSize: blockWidth * 5,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 15),
           RichText(
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
                   text: 'Kujifungua ',
                   style: TextStyle(
-                    fontFamily: 'Noto',
+                    fontFamily: '',
                     fontWeight: FontWeight.w300,
                     fontSize: blockWidth * 5,
                     color: Colors.grey[800],
@@ -56,15 +83,12 @@ class _PregnancyInfoState extends State<PregnancyInfo> {
                 ),
                 TextSpan(
                   text: ' ' +
-                  DateFormat.yMd('en_US').format(this.widget.currentUser.dueDate)
-                      // DateFormat('EEE, d MMM yyyy')
-                      //     .format(this.widget.currentUser.dueDate)
-                          .toString(),
+                  '${this.widget.currentUser.dueDate.day}/${this.widget.currentUser.dueDate.month}/${this.widget.currentUser.dueDate.year}',
                   style: TextStyle(
-                    fontFamily: 'Noto',
+                    fontFamily: '',
                     fontWeight: FontWeight.w400,
                     fontSize: blockWidth * 5,
-                    color: Colors.white,
+                    color: Colors.green,
                   ),
                 ),
               ],
@@ -76,7 +100,7 @@ class _PregnancyInfoState extends State<PregnancyInfo> {
               Text(
                 "Zimebaki   ",
                 style: TextStyle(
-                  fontFamily: 'Noto',
+                  fontFamily: '',
                   fontWeight: FontWeight.w300,
                   fontSize: blockWidth * 4,
                   color: Colors.grey[800],
@@ -137,9 +161,9 @@ class _PregnancyInfoState extends State<PregnancyInfo> {
       text: title,
       style: TextStyle(
         fontWeight: weight,
-        fontFamily: 'Noto',
+        fontFamily: '',
         fontSize: size,
-        color: Colors.white
+        color: Colors.green
         // color: Colors.green[900],
       ),
     );

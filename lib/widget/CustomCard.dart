@@ -29,13 +29,18 @@ class _CustomCardState extends State<CustomCard> {
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: blockWidth * 4, vertical: blockHeight * 1),
-        decoration: BoxDecoration(
-          color: Colors.green[600].withOpacity(.9),
-          // color: Colors.lightGreen[100].withOpacity(0.7),
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          ),
+            decoration: BoxDecoration(
+          color: Colors.green[300].withOpacity(0),
+          border: Border.all(color: Colors.green),
+          borderRadius: BorderRadius.all(Radius.circular(20))
         ),
+        // decoration: BoxDecoration(
+        //   color: Colors.green[600].withOpacity(.9),
+        //   // color: Colors.lightGreen[100].withOpacity(0.7),
+        //   borderRadius: BorderRadius.all(
+        //     Radius.circular(15.0),
+        //   ),
+        // ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

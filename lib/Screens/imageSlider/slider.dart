@@ -6,7 +6,7 @@ import 'package:pregnancy_tracking_app/Screens/home/homeScreen.dart';
 import 'package:pregnancy_tracking_app/widget/CustomButton.dart';
 
 class SliderPage extends StatefulWidget {
-  User loginUser;
+  User1 loginUser;
   SliderPage(this.loginUser);
   @override
   _SliderPageState createState() => _SliderPageState();
@@ -37,6 +37,11 @@ class _SliderPageState extends State<SliderPage> {
 
   onClickSkip() {
     Navigator.pop(context);
+    // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(
+    //     builder: (context) => HomeScreen(this.widget.loginUser.mobileNumber)
+    //   )
+    // );
     Navigator.push(
       context,
       MaterialPageRoute(

@@ -34,7 +34,7 @@ class _SubTopicListState extends State<SubTopicList> {
         return ListView(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          children: snapshot.data.documents.map((document) {
+          children: snapshot.data.docs.map((document) {
             subTopic.id = document["id"];
             subTopic.title = document["title"];
             subTopic.description = document["description"];

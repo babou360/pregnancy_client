@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/Screens/signUP/mobileVerf.dart';
@@ -18,7 +19,7 @@ class _SignUpState extends State<SignUp> {
   final mobileController = TextEditingController();
   String _code;
 
-  User loginUser = User();
+  User1 loginUser = User1();
   TimeCalculate shared = TimeCalculate();
 
   @override
@@ -34,7 +35,43 @@ class _SignUpState extends State<SignUp> {
     }
 
     mobileVerify() {
-      if (_formKey.currentState.validate()) {
+      if(mobileController.text.isEmpty){
+        Fluttertoast.showToast(
+          msg: "Hujaweka namba ya simu",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      }else if(mobileController.text.startsWith('0')){
+        Fluttertoast.showToast(
+          msg: "Usianze na  0 kwenye namba",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      }else if(mobileController.text.length < 9){
+        Fluttertoast.showToast(
+          msg: "Namba lazima iwe na tarakimu 9",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      }else if(mobileController.text.length>9){
+        Fluttertoast.showToast(
+          msg: "Namba si zaidi ya tarakimu 9",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      }else{
         this.loginUser.mobileNumber = setMobileNumber(mobileController.text);
         Navigator.push(
           context,
@@ -44,13 +81,28 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
         );
-      } else {
-        ("****form is not valid****");
       }
+      // if (_formKey.currentState.validate()) {
+      //   this.loginUser.mobileNumber = setMobileNumber(mobileController.text);
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => MobileVerfy(
+      //         this.loginUser,
+      //       ),
+      //     ),
+      //   );
+      // } else {
+      //   ("****form is not valid****");
+      // }
     }
 
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: ()=> mobileVerify(),
+          child: Icon(Icons.navigate_next,size: 40,),
+        ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -89,7 +141,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       SizedBox(height: blockHeight * 10),
                       Form(
-                          key: _formKey,
+                          //key: _formKey,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -122,7 +174,7 @@ class _SignUpState extends State<SignUp> {
                                       child: TextFormField(
                                         style: TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.grey[800],
+                                          color: Colors.grey[600],
                                           fontFamily: '',
                                         ),
                                         controller: mobileController,
@@ -142,8 +194,12 @@ class _SignUpState extends State<SignUp> {
                                         },
                                         decoration: InputDecoration(
                                           // labelText: 'Phone Number',
-                                          hintText: 'Phone Number',
-                                          border: InputBorder.none
+                                          hintText: 'Nambari ya simu',
+                                          border: InputBorder.none,
+                                          hintStyle: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.grey[500],
+                                          )
                                         ),
                                       ),
                                     ),
@@ -152,16 +208,16 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           )),
-                      SizedBox(height: blockHeight * 3),
-                      CustomButton(
-                        title: "Next",
-                        width: blockWidth * 70,
-                        bgColor: Colors.green[400],
-                        textColor: Colors.white,
-                        height: blockHeight * 7,
-                        fontSize: blockHeight * 3,
-                        callback: mobileVerify,
-                      )
+                      // SizedBox(height: blockHeight * 3),
+                      // CustomButton(
+                      //   title: "Next",
+                      //   width: blockWidth * 70,
+                      //   bgColor: Colors.green[400],
+                      //   textColor: Colors.white,
+                      //   height: blockHeight * 7,
+                      //   fontSize: blockHeight * 3,
+                      //   callback: mobileVerify,
+                      // )
                     ],
                   ),
                 ),

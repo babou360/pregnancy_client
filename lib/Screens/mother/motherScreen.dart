@@ -9,7 +9,7 @@ import 'package:pregnancy_tracking_app/widget/CustomLoading.dart';
 import 'package:pregnancy_tracking_app/widget/ImageView.dart';
 
 class MotherScreen extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   MotherScreen(this.currentUser);
 
   @override

@@ -5,7 +5,7 @@ import 'package:pregnancy_tracking_app/widget/CustomCard.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 
 class PaymentInfo extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   PaymentInfo(this.currentUser);
   @override
   _PaymentInfoState createState() => _PaymentInfoState();

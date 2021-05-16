@@ -11,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // ignore: must_be_immutable
 class ChildDimensions extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   ChildDimensions(this.currentUser);
 
   @override
@@ -58,150 +58,132 @@ class _ChildDimensionsState extends State<ChildDimensions> {
                 builder: (context, currentBabySnap) {
                   if (!currentBabySnap.hasData) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 8,right: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          // color: Colors.black26
-                        ),
-                        child: Padding(
-                        padding: const EdgeInsets.only(top: 8,bottom: 8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green[600].withOpacity(.9),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Vipimo Vya Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      width: MediaQuery.of(context).size.width/2,
-                                      decoration: BoxDecoration(
-                                        color: Colors.green[600],
-                                        borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                          color:Color(0xFFdedede),
-                                          offset: Offset(2,2)
+                                padding: const EdgeInsets.only(left: 8,right: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: Padding(
+                                  padding: const EdgeInsets.only(top: 8,bottom: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green[600].withOpacity(0),
+                                      border: Border.all(color: Colors.green),
+                                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Uzito wa Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
+                                          ),
                                         ),
-                                        ]
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
+                                        Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text('Uzito',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                            Text('30 gm')
+                                            Container(
+                                                // width: MediaQuery.of(context).size.width/2,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green[400].withOpacity(0),
+                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(16.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Text('Mwanao ana uzito wa',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600])),
+                                                      SizedBox(width: 5),
+                                                      Text('20',
+                                                      style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey[600])),
+                                                      SizedBox(width: 2),
+                                                      Text('gm',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600]))
+                                                    ],
+                                                  )
+                                                ),
+                                              ),
                                           ],
-                                        ),
-                                      ),
+                                        ) 
+                                      ],
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text('Urefu',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                            Text('30 cm')
-                                          ],
-                                      ),
-                                      ),
-                                    ),
-                                ],
-                              ) 
-                            ],
-                          ),
-                        ),
-                      )
-                      ),
-                    );
+                                  ),
+                                )
+                                ),
+                              );
                   }
                   if (currentBabySnap.hasData && currentBabySnap.data.length < 1) {
                     return Padding(
-                    padding: const EdgeInsets.only(left: 8,right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        // color: Colors.black26
-                      ),
-                      child: Padding(
-                      padding: const EdgeInsets.only(top: 8,bottom: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.green[600].withOpacity(.9),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //   color:Color(0xFFdedede),
-                          //   offset: Offset(2,2)
-                          // ),
-                          // ]
-                        ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Vipimo Vya Mtoto',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white)),
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                    width: MediaQuery.of(context).size.width/2,
+                                padding: const EdgeInsets.only(left: 8,right: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: Padding(
+                                  padding: const EdgeInsets.only(top: 8,bottom: 8),
+                                  child: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.green[600],
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                        color:Color(0xFFdedede),
-                                        offset: Offset(2,2)
-                                      ),
-                                      ]
+                                      color: Colors.green[600].withOpacity(0),
+                                      border: Border.all(color: Colors.green),
+                                      borderRadius: BorderRadius.all(Radius.circular(20)),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('Uzito',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                          Text('20 gm')
-                                        ],
-                                      ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Uzito wa Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                                // width: MediaQuery.of(context).size.width/2,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green[400].withOpacity(0),
+                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(16.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Text('Mwanao ana uzito wa',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600])),
+                                                      SizedBox(width: 5),
+                                                      Text('20',
+                                                      style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey[600])),
+                                                      SizedBox(width: 2),
+                                                      Text('gm',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600]))
+                                                    ],
+                                                  )
+                                                ),
+                                              ),
+                                          ],
+                                        ) 
+                                      ],
                                     ),
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('Urefu',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                          Text(' 50 cm')
-                                        ],
-                                    ),
-                                    ),
-                                  ),
-                              ],
-                            ) 
-                          ],
-                        ),
-                      ))
-                    ));
+                                )
+                                ),
+                              );
                   }
                   if (currentBabySnap.hasData) {
                     return Container(
-                        // height: MediaQuery.of(context).size.height,
-                        // //currentBabySnap.data[index]['image']
                         child: ListView.builder(
                           shrinkWrap: true,
                             itemCount: 1,
@@ -211,58 +193,51 @@ class _ChildDimensionsState extends State<ChildDimensions> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                                    // color: Colors.black26
                                   ),
                                   child: Padding(
                                   padding: const EdgeInsets.only(top: 8,bottom: 8),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.green[600].withOpacity(.9),
+                                      color: Colors.green[600].withOpacity(0),
+                                      border: Border.all(color: Colors.green),
                                       borderRadius: BorderRadius.all(Radius.circular(20)),
                                     ),
                                     child: Column(
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Vipimo Vya Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Uzito wa Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
+                                          ),
                                         ),
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Container(
-                                                width: MediaQuery.of(context).size.width/2,
+                                                // width: MediaQuery.of(context).size.width/2,
                                                 decoration: BoxDecoration(
-                                                  color: Colors.green[600],
+                                                  color: Colors.green[400].withOpacity(0),
                                                   borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                    color:Color(0xFFdedede),
-                                                    offset: Offset(2,2)
-                                                  ),
-                                                  ]
                                                 ),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                  padding: const EdgeInsets.all(16.0),
+                                                  child: Row(
                                                     children: [
-                                                      Text('Uzito',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                                      Text(currentBabySnap.data[index]['weight'].toString() + ' gm')
+                                                      Text('Mwanao ana uzito wa',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600])),
+                                                      SizedBox(width: 5),
+                                                      Text(currentBabySnap.data[index]['weight'].toString(),
+                                                      style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey[600])),
+                                                      SizedBox(width: 2),
+                                                      Text(currentBabySnap.data[index]['dimension'].toString(),
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600]))
                                                     ],
-                                                  ),
-                                                ),
-                                              ),
-                                             Container(
-                                                decoration: BoxDecoration(
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text('Urefu',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                                      Text(currentBabySnap.data[index]['length'].toString() + ' cm')
-                                                    ],
-                                                ),
+                                                  )
                                                 ),
                                               ),
                                           ],
@@ -277,140 +252,128 @@ class _ChildDimensionsState extends State<ChildDimensions> {
                   }
                   if (currentBabySnap.connectionState ==ConnectionState.waiting) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 8,right: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          // color: Colors.black26
-                        ),
-                        child: Padding(
-                        padding: const EdgeInsets.only(top: 8,bottom: 8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green[600].withOpacity(.9),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Vipimo Vya Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      width: MediaQuery.of(context).size.width/2,
-                                      decoration: BoxDecoration(
-                                        color: Colors.green[600],
-                                        borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                          color:Color(0xFFdedede),
-                                          offset: Offset(2,2)
+                                padding: const EdgeInsets.only(left: 8,right: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: Padding(
+                                  padding: const EdgeInsets.only(top: 8,bottom: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green[600].withOpacity(0),
+                                      border: Border.all(color: Colors.green),
+                                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Uzito wa Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
+                                          ),
                                         ),
-                                        ]
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
+                                        Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text('Uzito',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                            Text('30 gm')
+                                            Container(
+                                                // width: MediaQuery.of(context).size.width/2,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green[400].withOpacity(0),
+                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(16.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Text('Mwanao ana uzito wa',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600])),
+                                                      SizedBox(width: 5),
+                                                      Text('20',
+                                                      style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey[600])),
+                                                      SizedBox(width: 2),
+                                                      Text('gm',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600]))
+                                                    ],
+                                                  )
+                                                ),
+                                              ),
                                           ],
-                                        ),
-                                      ),
+                                        ) 
+                                      ],
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text('Urefu',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                            Text('30 cm')
-                                          ],
-                                      ),
-                                      ),
-                                    ),
-                                ],
-                              ) 
-                            ],
-                          ),
-                        ),
-                      )
-                      ),
-                    );
+                                  ),
+                                )
+                                ),
+                              );
                   } else {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 8,right: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          // color: Colors.black26
-                        ),
-                        child: Padding(
-                        padding: const EdgeInsets.only(top: 8,bottom: 8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green[600].withOpacity(.9),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Vipimo Vya Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      width: MediaQuery.of(context).size.width/2,
-                                      decoration: BoxDecoration(
-                                        color: Colors.green[600],
-                                        borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                          color:Color(0xFFdedede),
-                                          offset: Offset(2,2)
+                                padding: const EdgeInsets.only(left: 8,right: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: Padding(
+                                  padding: const EdgeInsets.only(top: 8,bottom: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green[600].withOpacity(0),
+                                      border: Border.all(color: Colors.green),
+                                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Uzito wa Mtoto',style: TextStyle(fontFamily: '',fontSize: 18,fontWeight: FontWeight.w300,color: Colors.white)),
+                                          ),
                                         ),
-                                        ]
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
+                                        Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text('Uzito',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                            Text('30 gm')
+                                            Container(
+                                                // width: MediaQuery.of(context).size.width/2,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green[400].withOpacity(0),
+                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight:Radius.circular(50),topLeft: Radius.circular(20),bottomLeft:Radius.circular(20)),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(16.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Text('Mwanao ana uzito wa',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600])),
+                                                      SizedBox(width: 5),
+                                                      Text('20',
+                                                      style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey[600])),
+                                                      SizedBox(width: 2),
+                                                      Text('gm',
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[600]))
+                                                    ],
+                                                  )
+                                                ),
+                                              ),
                                           ],
-                                        ),
-                                      ),
+                                        ) 
+                                      ],
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text('Urefu',style: TextStyle(fontFamily: 'Noto',fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white)),
-                                            Text('30 cm')
-                                          ],
-                                      ),
-                                      ),
-                                    ),
-                                ],
-                              ) 
-                            ],
-                          ),
-                        ),
-                      )
-                      ),
-                    );
+                                  ),
+                                )
+                                ),
+                              );
                   }
                 },
               ),

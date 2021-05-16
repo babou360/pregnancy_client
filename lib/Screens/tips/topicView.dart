@@ -8,7 +8,7 @@ import 'package:pregnancy_tracking_app/widget/CustomIconButton.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class TopicView extends StatefulWidget {
-  User currentUser = User();
+  User1 currentUser = User1();
   Content mainTopic = Content();
   TopicView(this.mainTopic, this.currentUser);
 
@@ -84,7 +84,7 @@ class _TopicViewState extends State<TopicView> {
                             title: this.widget.mainTopic.title,
                             size: blockWidth * 5,
                             weight: FontWeight.w600,
-                            color: Colors.green,
+                            color: Colors.grey[600],
                           ),
                         ),
                         Padding(
@@ -94,14 +94,17 @@ class _TopicViewState extends State<TopicView> {
                               title: this.widget.mainTopic.subtitle,
                               size: blockWidth * 2.5,
                               weight: FontWeight.w400,
-                              color: Colors.green[400],
+                              color: Colors.grey[500],
                             ),
                         ),
                         SizedBox(height: blockHeight * 2),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: 300,
+                             constraints: BoxConstraints(
+                                minHeight: 350,
+                                maxHeight: 500,
+                              ),
                             width: MediaQuery.of(context).size.width,
                             child: CachedNetworkImage(
                                 imageUrl: this.widget.mainTopic.imageURL,fit: BoxFit.fill,
@@ -120,9 +123,9 @@ class _TopicViewState extends State<TopicView> {
                             child: CustomBannerText(
                               title: this.widget.mainTopic.description,
                               size: blockWidth * 3.5,
-                              fontFamily: 'Economica',
-                              weight: FontWeight.w600,
-                              color: Colors.green[600],
+                              fontFamily: '',
+                              weight: FontWeight.w400,
+                              color: Colors.grey[600],
                             ),
                           ),
                         ),

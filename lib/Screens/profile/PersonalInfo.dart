@@ -5,7 +5,7 @@ import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 
 class PersonalInfo extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   PersonalInfo(this.currentUser);
   @override
   _PersonalInfoState createState() => _PersonalInfoState();
@@ -18,7 +18,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      title: "Taarifa Binafsi",
+      title: "",
       showIcon: true,
       updateWidget: UpdatePersonalInfo(this.widget.currentUser),
       cardBody: Column(
@@ -56,29 +56,29 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       this.widget.currentUser.name,
                       softWrap: true,
                       style: TextStyle(
-                        fontFamily: 'Noto',
+                        fontFamily: '',
                           fontSize: blockWidth * 4.5,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.white),
+                          fontWeight: FontWeight.w400,
+                          color: Colors.green),
                     ),
                     SizedBox(height: blockHeight * 0.5),
                     Text(
                       this.widget.currentUser.mobileNumber,
                       style: TextStyle(
-                        fontFamily: 'Noto',
+                        fontFamily: '',
                         fontSize: blockWidth * 3,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.green,
                       ),
                     ),
                     SizedBox(height: blockHeight * 0.5),
                     Text(
                       "miaka " +this.widget.currentUser.age.toString(),
                       style: TextStyle(
-                        fontFamily: 'Noto',
+                        fontFamily: '',
                         fontSize: blockWidth * 4,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.green,
                       ),
                     ),
                   ],

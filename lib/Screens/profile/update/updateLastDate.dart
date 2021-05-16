@@ -7,7 +7,7 @@ import 'package:pregnancy_tracking_app/widget/CustomBannerText.dart';
 import 'package:pregnancy_tracking_app/widget/CustomButton.dart';
 
 class UpdateLastDate extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   UpdateLastDate(this.currentUser);
   @override
   _UpdateLastDateState createState() => _UpdateLastDateState();

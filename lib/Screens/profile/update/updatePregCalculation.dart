@@ -7,7 +7,7 @@ import 'package:pregnancy_tracking_app/widget/CustomButton.dart';
 import 'package:pregnancy_tracking_app/widget/CustomInputField.dart';
 
 class UpdatePregCalculation extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   UpdatePregCalculation(this.currentUser);
   @override
   _UpdatePregCalculationState createState() => _UpdatePregCalculationState();

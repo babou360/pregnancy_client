@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:pregnancy_tracking_app/Screens/baby/baby1.dart';
 import 'package:pregnancy_tracking_app/Screens/mother/mother.dart';
-import 'package:pregnancy_tracking_app/Screens/payment/payment.dart';
 import 'package:pregnancy_tracking_app/Screens/payment/sorry.dart';
-import 'package:pregnancy_tracking_app/Screens/unPaied/UnPaiedScree.dart';
 import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/services/databaseService.dart';
 import 'package:pregnancy_tracking_app/Screens/today/todayScreen.dart';
-import 'package:pregnancy_tracking_app/Screens/baby/babyScreen.dart';
-import 'package:pregnancy_tracking_app/Screens/mother/motherScreen.dart';
+import 'package:pregnancy_tracking_app/Screens/sms/sms1.dart';
 import 'package:pregnancy_tracking_app/Screens/tips/topicListScreen.dart';
 import 'package:pregnancy_tracking_app/Screens/profile/profileScreen.dart';
 import 'package:pregnancy_tracking_app/shared/greetings.dart';
@@ -29,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double blockWidth = SizeConfig.safeBlockHorizontal;
 
   DatabaseService _databaseService = DatabaseService();
-  User currentUser = User();
+  User1 currentUser = User1();
   Greetings greeting = Greetings();
   int _currentIndex;
   Stream userStream;
@@ -76,10 +73,12 @@ class _HomeScreenState extends State<HomeScreen> {
           this.currentUser.weight = currentUserSnap.data["weight"];
           this.currentUser.bloodCount = currentUserSnap.data["bloodCount"];
           this.currentUser.joinedAt = currentUserSnap.data["joinedAt"].toDate();
-          this.currentUser.renewalDate = currentUserSnap.data["renewalDate"].toDate();
+          this.currentUser.renewalDate =
+              currentUserSnap.data["renewalDate"].toDate();
 
-          // if (this.currentUser.joinedAt.compareTo(DateTime.now()) >= 0) {
-            if (DateTime.now().difference(this.currentUser.joinedAt).inDays <= 10  || (this.currentUser.renewalDate.difference(DateTime.now()).inDays >= -10) && this.currentUser.renewalDate.difference(DateTime.now()).inDays <= 30) {
+           //if (this.currentUser.joinedAt.compareTo(DateTime.now()) >= 0) {
+              //if (DateTime.now().difference(this.currentUser.joinedAt).inDays <= 10  || (this.currentUser.renewalDate.difference(DateTime.now()).inDays >= -10) && this.currentUser.renewalDate.difference(DateTime.now()).inDays <= 30) {
+            if (DateTime.now().difference(this.currentUser.joinedAt).inDays <= 7  || (this.currentUser.payDate.difference(DateTime.now()).inDays >= 0) && this.currentUser.payDate.difference(DateTime.now()).inDays <= 30) {
             return SafeArea(
               child: Scaffold(
                 backgroundColor: Colors.white,
@@ -106,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottomNavigationBar: BubbleBottomBar(
                   opacity: 0.4,
                   backgroundColor: Colors.green[600],
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+                  borderRadius:BorderRadius.vertical(top: Radius.circular(30.0)),
                   currentIndex: _currentIndex,
                   hasInk: false,
                   hasNotch: false,
@@ -125,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else {
-            // return UnPaiedScreen(currentUser);
-            return Sorry();
+            return SMS1(this.currentUser);
+            //return Sorry();
           }
         } else {
           return Scaffold(body: CustomLoading());
@@ -168,11 +167,10 @@ class _HomeScreenState extends State<HomeScreen> {
         Text(
           title1,
           style: TextStyle(
-            fontFamily: 'CustomIcons',
-            fontSize: blockWidth * 4,
-            fontWeight: FontWeight.w200,
-            color: Colors.black
-          ),
+              fontFamily: 'CustomIcons',
+              fontSize: blockWidth * 4,
+              fontWeight: FontWeight.w200,
+              color: Colors.black),
         ),
         Text(
           title2,

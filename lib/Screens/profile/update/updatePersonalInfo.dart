@@ -11,7 +11,7 @@ import 'package:pregnancy_tracking_app/widget/CustomIconButton.dart';
 import 'package:pregnancy_tracking_app/widget/CustomInputField.dart';
 
 class UpdatePersonalInfo extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   UpdatePersonalInfo(this.currentUser);
   @override
   _UpdatePersonalInfoState createState() => _UpdatePersonalInfoState();
@@ -27,14 +27,30 @@ class _UpdatePersonalInfoState extends State<UpdatePersonalInfo> {
   final ageController = TextEditingController();
 
   String profileImageURL;
+  //File _imageFile;
+
+  // Future getImage() async {
+  //   await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
+  //     setState(() {
+  //       _imageFile = image;
+  //       profileImageURL = image.path;
+  //     });
+  //   });
+  // }
+
   File _imageFile;
+  final picker = ImagePicker();
 
   Future getImage() async {
-    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
-      setState(() {
-        _imageFile = image;
-        profileImageURL = image.path;
-      });
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+        profileImageURL=_imageFile.path;
+      } else {
+        print('No image selected.');
+      }
     });
   }
 

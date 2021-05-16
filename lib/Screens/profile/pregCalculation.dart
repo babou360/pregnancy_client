@@ -6,7 +6,7 @@ import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/widget/CustomBannerText.dart';
 
 class PregnancyCalculation extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   PregnancyCalculation(this.currentUser);
   @override
   _PregnancyCalculationState createState() => _PregnancyCalculationState();

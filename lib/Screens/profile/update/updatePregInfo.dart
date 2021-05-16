@@ -6,7 +6,7 @@ import 'package:pregnancy_tracking_app/widget/CustomBannerText.dart';
 import 'package:pregnancy_tracking_app/widget/CustomButton.dart';
 
 class UpdatePregInfo extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   UpdatePregInfo(this.currentUser);
   @override
   _UpdatePregInfoState createState() => _UpdatePregInfoState();

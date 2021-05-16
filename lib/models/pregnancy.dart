@@ -8,7 +8,7 @@ class Pregnancy {
   int dueDays;
   int dueWeeks;
 
-  updateValue(User currentUser) {
+  updateValue(User1 currentUser) {
     TimeCalculate time = TimeCalculate();
     days = time.countDates(DateTime.now(), currentUser.lastPeriodDate);
     weeks = time.countWeeks(DateTime.now(), currentUser.lastPeriodDate);

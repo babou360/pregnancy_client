@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserDatabaseService {
-  final firestoreInstance = Firestore.instance;
+  final firestoreInstance = FirebaseFirestore.instance;
 
   Stream<dynamic> getBabyWeek(int week) {
     return firestoreInstance
         .collection("baby")
-        .document(week.toString())
+        .doc(week.toString())
         .collection("data")
         // .collection("babyWeek")
         // .document("week" + week.toString())
@@ -15,26 +15,26 @@ class UserDatabaseService {
 
   // Future<List<DocumentSnapshot>> baby1(String week) async {
     Future<dynamic> baby1(int week) async {
-    var data = await Firestore.instance
+    var data = await FirebaseFirestore.instance
         .collection('baby')
-        .document(week.toString())
+        .doc(week.toString())
         .collection('data')
         .orderBy('date',descending: true)
-        .getDocuments();
-    var all = data.documents;
+        .get();
+    var all = data.docs;
     return all;
     // var productId = data.documents;
     // return productId;
   }
 
    Future<dynamic> getMomMonth(int month) async {
-    var data = await Firestore.instance
+    var data = await FirebaseFirestore.instance
         .collection('mother')
-        .document(month.toString())
+        .doc(month.toString())
         .collection('data')
         .orderBy('date',descending: true)
-        .getDocuments();
-    var all = data.documents;
+        .get();
+    var all = data.docs;
     return all;
     // var productId = data.documents;
     // return productId;
@@ -43,7 +43,7 @@ class UserDatabaseService {
   Stream<dynamic> getMomWeek(int week) {
     return firestoreInstance
         .collection("momsInWeek")
-        .document("week" + week.toString())
+        .doc("week" + week.toString())
         .snapshots();
   }
 
@@ -65,7 +65,7 @@ class UserDatabaseService {
   Stream<dynamic> getSubTopics(String mainTopicId) {
     return firestoreInstance
         .collection("tips")
-        .document(mainTopicId)
+        .doc(mainTopicId)
         .collection("subTopics")
         .snapshots();
   }

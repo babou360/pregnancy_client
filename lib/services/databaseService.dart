@@ -5,14 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseService {
-  final firestoreInstance = Firestore.instance;
+  final firestoreInstance = FirebaseFirestore.instance;
   final storageInstance = FirebaseStorage.instance;
 
-  createUser(User user, bool isNew) async {
+  createUser(User1 user, bool isNew) async {
     await firestoreInstance
         .collection('users')
-        .document(user.mobileNumber)
-        .setData(
+        .doc(user.mobileNumber)
+        .set(
       {
         'phoneNumber': user.mobileNumber,
         'name': user.name,
@@ -22,13 +22,14 @@ class DatabaseService {
         'weight': (user.weight != null) ? user.weight : 0.0,
         'bloodCount': (user.bloodCount != null) ? user.bloodCount : 0.0,
         'dueDate': user.dueDate,
-        'payDate': DateTime.now(),
+        'payDate':(isNew) ? DateTime.now() : user.payDate,
+        // 'payDate': DateTime.now(),
         'joinedAt': (isNew) ? DateTime.now() : user.joinedAt,
         'renewalDate': (user.renewalDate != null)
             ? user.renewalDate
             : DateTime.now().add(Duration(days: 30)),
       },
-      merge: true,
+      // merge: true,
     ).then((value) {
       if (!isNew) {
         print("data update seccessfully");
@@ -41,21 +42,21 @@ class DatabaseService {
   updateWhenDeleteImage(String docKey) async {
     await firestoreInstance
         .collection('users')
-        .document(docKey)
-        .updateData({'profileImage': null}).then((value) {
+        .doc(docKey)
+        .update({'profileImage': null}).then((value) {
       print("data updated");
     }).catchError((error) {
       print(error.toString());
     });
   }
 
-  Future<bool> uploadImage(String filePath, File file, User currentUser) async {
-    StorageReference storageReference = storageInstance.ref();
-    StorageUploadTask uploadTask =
-        storageReference.child(filePath).putFile(file);
-
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-    taskSnapshot.ref.getDownloadURL().then((downloadURL) {
+  Future<bool> uploadImage(String filePath, File file, User1 currentUser) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref();
+    //StorageReference storageReference = storageInstance.ref();
+    UploadTask  uploadTask = ref.child(filePath).putFile(file);
+    uploadTask.then((res) {
+      res.ref.getDownloadURL().then((downloadURL) {
       print(currentUser.name);
       print(currentUser.age);
       currentUser.profileImageURL = downloadURL;
@@ -66,14 +67,31 @@ class DatabaseService {
       print("error while uploading");
       print(error);
     });
+    });
+
+    // StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    // taskSnapshot.ref.getDownloadURL().then((downloadURL) {
+    //   print(currentUser.name);
+    //   print(currentUser.age);
+    //   currentUser.profileImageURL = downloadURL;
+    //   createUser(currentUser, false);
+    // }).then((value) {
+    //   print("image upload success");
+    // }).catchError((error) {
+    //   print("error while uploading");
+    //   print(error);
+    // });
   }
 
   Future deleteImage(String imageURL) async {
     print(imageURL);
-    StorageReference storageRef =
-        await storageInstance.getReferenceFromUrl(imageURL);
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref();
+    ref= storage.refFromURL(imageURL);
+    // StorageReference storageRef =
+    //     await storageInstance.getReferenceFromUrl(imageURL);
     try {
-      await storageRef.delete();
+      await ref.delete();
       print("image deleted success");
       return true;
     } catch (e) {
@@ -86,7 +104,7 @@ class DatabaseService {
   Stream<dynamic> getUser(String documentKey) {
     return firestoreInstance
         .collection('users')
-        .document(documentKey)
+        .doc(documentKey)
         .snapshots();
   }
 

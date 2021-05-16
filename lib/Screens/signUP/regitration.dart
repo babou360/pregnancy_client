@@ -10,7 +10,7 @@ import 'package:pregnancy_tracking_app/widget/CustomInputField.dart';
 import 'package:pregnancy_tracking_app/widget/CustomTitle.dart';
 
 class Registration extends StatefulWidget {
-  User loginUser;
+  User1 loginUser;
   Registration(this.loginUser);
   @override
   _RegistrationState createState() => _RegistrationState();
@@ -81,8 +81,8 @@ class _RegistrationState extends State<Registration> {
           this.widget.loginUser.lastPeriodDate =
               snapshot.data["lastPeriodDate"].toDate();
           this.widget.loginUser.dueDate = snapshot.data["dueDate"].toDate();
-          this.widget.loginUser.renewalDate =
-              snapshot.data["renewalDate"].toDate();
+          this.widget.loginUser.renewalDate =snapshot.data["renewalDate"].toDate();
+          this.widget.loginUser.payDate =snapshot.data["payDate"].toDate();
           this.widget.loginUser.joinedAt = snapshot.data["joinedAt"].toDate();
           _isDateSelect = true;
           this.pickedDate = this.widget.loginUser.lastPeriodDate;
@@ -185,17 +185,17 @@ class _RegistrationState extends State<Registration> {
                                                       child: Text(
                                                         () {
                                                           if (!_isDateSelect) {
-                                                            return "Tarehe ya mwisho ya hedhi";
+                                                            return "mwisho wa hedhi";
                                                             // return "Last period start date";
                                                           } else {
                                                             return pickedDate
-                                                                    .year
+                                                                    .day
                                                                     .toString() +
                                                                 " - " +
                                                                 pickedDate.month
                                                                     .toString() +
                                                                 " - " +
-                                                                pickedDate.day
+                                                                pickedDate.year
                                                                     .toString();
                                                           }
                                                         }(),
@@ -259,7 +259,8 @@ class _RegistrationState extends State<Registration> {
       setState(() {
         _isDateSelect = true;
         _errorText = '';
-        pickedDate = (_date.toUtc());
+        pickedDate = _date;
+        // pickedDate = (_date.toUtc());
       });
     }
   }

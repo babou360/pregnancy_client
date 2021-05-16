@@ -4,7 +4,7 @@ import 'package:pregnancy_tracking_app/app/sizeConfig.dart';
 import 'package:pregnancy_tracking_app/models/user.dart';
 
 class UnPaiedScreen extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   UnPaiedScreen(this.currentUser);
   @override
   _UnPaiedScreenState createState() => _UnPaiedScreenState();

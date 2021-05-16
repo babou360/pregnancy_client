@@ -11,7 +11,7 @@ import 'package:pregnancy_tracking_app/widget/texts.dart';
 import 'package:share/share.dart';
 
 class MotherNew extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   MotherNew(this.currentUser);
 
   @override
@@ -54,7 +54,7 @@ class _MotherNewState extends State<MotherNew> {
               child: buildMonthRow(),
             ),
             Container(
-              height: MediaQuery.of(context).size.height / 1.5,
+              height: MediaQuery.of(context).size.height / 1.4,
               child: FutureBuilder(
                 future: motherMonthStram,
                 builder: (context, currentBabySnap) {
@@ -72,7 +72,10 @@ class _MotherNewState extends State<MotherNew> {
                           child: Column(
                             children: [
                               Container(
-                                height: 350,
+                                constraints: BoxConstraints(
+                                minHeight: 350,
+                                maxHeight: 500,
+                              ),
                                 width: MediaQuery.of(context).size.width,
                                 child: Image.asset("images/preg.jpg",fit: BoxFit.cover),
                               ),
@@ -87,9 +90,9 @@ class _MotherNewState extends State<MotherNew> {
                                     SizedBox(height: 5,),
                                     Text(Texts().mother,style: TextStyle(
                                       fontSize: 15,
-                                      fontFamily: 'Economica',
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.grey[800]
+                                      fontFamily: '',
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey[600]
                                       )),
                                     SizedBox(height: 5,),
                                     Divider(color: Colors.green,),
@@ -98,12 +101,12 @@ class _MotherNewState extends State<MotherNew> {
                                       children: [
                                         Text('Maendeleo ya Mama',
                                          style: TextStyle( fontSize: 15,fontWeight: FontWeight.w600,  color: Colors.green[400],fontFamily: 'Noto')),
-                                        GestureDetector(
-                                          onTap: (){
-                                            Share.share(Texts().mother,subject:'Good Day',);
-                                          },
-                                          child: Icon(Icons.share,color: Colors.green),
-                                        )
+                                        // GestureDetector(
+                                        //   onTap: (){
+                                        //     Share.share(Texts().mother,subject:'Good Day',);
+                                        //   },
+                                        //   child: Icon(Icons.share,color: Colors.green),
+                                        // )
                                       ],
                                     ),
                                   ],
@@ -137,7 +140,10 @@ class _MotherNewState extends State<MotherNew> {
                                         children: [
                                           SizedBox(height: 5,),
                                           Container(width: MediaQuery.of(context).size.width,
-                                              height: 300,
+                                               constraints: BoxConstraints(
+                                                minHeight: 350,
+                                                maxHeight: 500,
+                                              ),
                                               child: CachedNetworkImage(
                                                 imageUrl: currentBabySnap.data[index]['image'],fit: BoxFit.fill,
                                                 placeholder: (context, url) => Image.asset('images/place4.png',fit: BoxFit.cover),
@@ -159,10 +165,10 @@ class _MotherNewState extends State<MotherNew> {
                                                 SizedBox( height: 7),
                                                 Text( currentBabySnap.data[index]['description'],
                                                     style: TextStyle(
-                                                      fontFamily: 'Economica',
+                                                      fontFamily: '',
                                                         fontSize: 15,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: Colors.grey[800])),
+                                                        fontWeight: FontWeight.w400,
+                                                        color: Colors.grey[600])),
                                               ],
                                             ),
                                           ),
@@ -180,12 +186,12 @@ class _MotherNewState extends State<MotherNew> {
                                                         fontSize: 15,
                                                         fontWeight: FontWeight.w500,
                                                         color: Colors.green[400])),
-                                                GestureDetector(
-                                                  onTap: (){
-                                                    Share.share(currentBabySnap.data[index]['description'],subject:currentBabySnap.data[index]['title'],);
-                                                  },
-                                                  child: Icon(Icons.share,color: Colors.green),
-                                                )
+                                                // GestureDetector(
+                                                //   onTap: (){
+                                                //     Share.share(currentBabySnap.data[index]['description'],subject:currentBabySnap.data[index]['title'],);
+                                                //   },
+                                                //   child: Icon(Icons.share,color: Colors.green),
+                                                // )
                                                 ],
                                             ),
                                           )

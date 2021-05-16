@@ -182,7 +182,7 @@ class _PaymentState extends State<Payment> {
     if (response != null) {
       this
           .showLoading(response.data.status)
-          .then((value) => Firestore.instance.collection('payers').add({
+          .then((value) => FirebaseFirestore.instance.collection('payers').add({
                 'name': 'Babou',
                 'date': DateTime.now(),
                 'amount': this.amountController.text.toString().trim(),
@@ -213,7 +213,7 @@ class _PaymentState extends State<Payment> {
       FlutterwaveCurrency.XAF,
       FlutterwaveCurrency.XOF,
       FlutterwaveCurrency.ZMW,
-      FlutterwaveCurrency.TZS,
+      FlutterwaveCurrency.KES,
     ];
     return Container(
       height: 250,

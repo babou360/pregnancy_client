@@ -11,7 +11,7 @@ import 'package:pregnancy_tracking_app/widget/tipContainer.dart';
 import 'package:share/share.dart';
 
 class BabyScreen extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   BabyScreen(this.currentUser);
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pregnancy_tracking_app/Screens/signUP/PInNumber.dart';
 import 'package:pregnancy_tracking_app/Screens/signUP/keyboardNumber.dart';
 import 'package:pregnancy_tracking_app/Screens/signUP/regitration.dart';
@@ -11,7 +12,7 @@ import 'package:pregnancy_tracking_app/widget/CustomTitle.dart';
 
 class MobileVerfy extends StatefulWidget {
   MobileVerfy(this.loginUser);
-  User loginUser;
+  User1 loginUser;
 
   @override
   _MobileVerfyState createState() => _MobileVerfyState();
@@ -20,6 +21,7 @@ class MobileVerfy extends StatefulWidget {
 class _MobileVerfyState extends State<MobileVerfy> {
   double blockHeight = SizeConfig.safeBlockVertical;
   double blockWidth = SizeConfig.safeBlockHorizontal;
+  String pin;
 
   final AuthService _authService = AuthService();
   @override
@@ -29,14 +31,44 @@ class _MobileVerfyState extends State<MobileVerfy> {
   }
 
   verifyMobile() {
-    _authService.signUp(this.smsCode, context);
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Registration(this.widget.loginUser),
-      ),
-    );
+      if (firstPinController.text.isEmpty) {
+      Fluttertoast.showToast(
+          msg: "Tafadhali jaza code",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }else if(firstPinController.text.length>6 || firstPinController.text.length<6){
+      Fluttertoast.showToast(
+          msg: "code sio zaidi au chini ya 6",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }else if(firstPinController.text!=this.smsCode){
+      Fluttertoast.showToast(
+          msg: "umeingiza code isio sahihi",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+       _authService.signUp(this.smsCode, context);
+      //_authService.signUp(pin, context);
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Registration(this.widget.loginUser),
+        ),
+      );
+    }
   }
 
   resendCode() {
@@ -98,7 +130,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                               child: RichText(
                                 text: TextSpan(
                                   text:
-                                      "tafadhali ingiza msibo uliotumwa kwenye namba ",
+                                      "tafadhali ingiza Code iliotumwa kwenye namba ",
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: this.widget.loginUser.mobileNumber,
@@ -116,11 +148,37 @@ class _MobileVerfyState extends State<MobileVerfy> {
                             ),
                           ),
                           SizedBox(height: blockHeight * 5),
-                          Container(
-                            alignment: Alignment.center,
-                            width: double.infinity,
-                            child: otpPinRow(),
-                          ),
+                          TextFormField(
+                              cursorColor: Colors.black,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  decorationColor: Colors.black),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Ingiza code';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: firstPinController,
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.black)),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.black,
+                                )),
+                                //labelText: "Code",
+                                hintText: "Code",
+                                fillColor: Colors.black,
+                                focusColor: Colors.black,
+                                hoverColor: Colors.black,
+                              ),
+                              obscureText: false,
+                              keyboardType: TextInputType.number,
+                              onChanged: (input) => pin = input),
                           SizedBox(height: blockHeight * 5),
                           CustomButton(
                             title: "Thibitisha sasa",
@@ -137,7 +195,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  "Haukupata Msimbo ?   ",
+                                  "Haukupata Code ?   ",
                                   style: TextStyle(
                                     fontSize: blockWidth * 3.5,
                                     fontWeight: FontWeight.w300,
@@ -147,9 +205,9 @@ class _MobileVerfyState extends State<MobileVerfy> {
                                 CustomButton(
                                   title: "Tuma",
                                   width: blockWidth * 25,
-                                  bgColor: Colors.green[50],
+                                  bgColor: Colors.green[200],
                                   textColor: Colors.black54,
-                                  height: blockHeight * 3.5,
+                                  height: blockHeight * 6.5,
                                   fontSize: blockHeight * 1.8,
                                   callback: resendCode,
                                 ),
@@ -157,7 +215,7 @@ class _MobileVerfyState extends State<MobileVerfy> {
                             ),
                           ),
                           // SizedBox(height: blockHeight * ),
-                          Container(child: numberPad()),
+                          //Container(child: numberPad()),
                         ],
                       ),
                     ),

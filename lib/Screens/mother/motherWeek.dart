@@ -6,7 +6,7 @@ import 'package:pregnancy_tracking_app/services/userDatabaseService.dart';
 import 'package:pregnancy_tracking_app/widget/tipContainer.dart';
 
 class MotherWeek extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   Mother mother;
   MotherWeek(this.currentUser, this.mother);
   @override

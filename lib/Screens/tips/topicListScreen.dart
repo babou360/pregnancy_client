@@ -10,7 +10,7 @@ import 'package:pregnancy_tracking_app/widget/CustomIconButton.dart';
 import 'package:pregnancy_tracking_app/widget/CustomLoading.dart';
 
 class TopicListScreen extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   TopicListScreen(this.currentUser);
 
   @override
@@ -51,9 +51,9 @@ class _TopicListScreenState extends State<TopicListScreen> {
           return CustomLoading();
         }
         return ListView(
-          children: snapshot.data.documents.map((document) {
+          children: snapshot.data.docs.map((document) {
             Content mainTopic = Content();
-            mainTopic.id = document["id"];
+            //mainTopic.id = document["id"];
             mainTopic.title = document["title"];
             mainTopic.subtitle = document["subtitle"];
             mainTopic.description = document["description"];
@@ -70,13 +70,14 @@ class _TopicListScreenState extends State<TopicListScreen> {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
-                    vertical: blockHeight * 0.75, horizontal: blockWidth * 4),
+                    vertical: blockHeight * 0.4, horizontal: blockWidth * 2),
                 width: double.infinity,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: blockWidth * 3, vertical: blockHeight * 2),
                   decoration: BoxDecoration(
-                    color: Colors.green[600].withOpacity(.9),
+                    color: Colors.green[300].withOpacity(0),
+                    border: Border.all(color: Colors.green),
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     ),
@@ -88,9 +89,9 @@ class _TopicListScreenState extends State<TopicListScreen> {
                         width: blockWidth * 65,
                         child: CustomBannerText(
                           fontFamily: 'Roboto',
-                          color: Colors.white,
+                          color: Colors.grey[800],
                           title: mainTopic.title,
-                          size: blockWidth * 5,
+                          size: blockWidth * 4,
                           weight: FontWeight.w300,
                         ),
                       ),

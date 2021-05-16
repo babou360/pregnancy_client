@@ -10,7 +10,7 @@ import 'package:pregnancy_tracking_app/widget/CustomLoading.dart';
 import 'package:share/share.dart';
 
 class Baby1 extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   Baby1(this.currentUser);
 
   @override
@@ -56,7 +56,7 @@ class _Baby1State extends State<Baby1> {
               child: buildWeekRow(),
             ),
             Container(
-              height: MediaQuery.of(context).size.height / 1.5,
+              height: MediaQuery.of(context).size.height / 1.4,
               child: FutureBuilder(
                 future: babyWeekStram1,
                 builder: (context, currentBabySnap) {
@@ -74,7 +74,10 @@ class _Baby1State extends State<Baby1> {
                           child: Column(
                             children: [
                               Container(
-                                height: 350,
+                                constraints: BoxConstraints(
+                                minHeight: 400,
+                                maxHeight: 500,
+                              ),
                                 width: MediaQuery.of(context).size.width,
                                 child: Image.asset("images/baby2.jpg",fit: BoxFit.cover),
                               ),
@@ -90,9 +93,9 @@ class _Baby1State extends State<Baby1> {
                                     Text(Texts().mtoto,
                                     style: TextStyle(
                                       fontSize: 15,
-                                      fontFamily: 'Economica',
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.grey[800]
+                                      fontFamily: '',
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey[600]
                                       )
                                     ),
                                     SizedBox(height: 5,),
@@ -101,12 +104,12 @@ class _Baby1State extends State<Baby1> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text('Maendeleo ya wiki', style: TextStyle( fontSize: 15,fontWeight: FontWeight.w600,  color: Colors.green[400],fontFamily: 'Noto')),
-                                        GestureDetector(
-                                          onTap: (){
-                                            Share.share(Texts().mtoto,subject:'Good Day',);
-                                          },
-                                          child: Icon(Icons.share,color: Colors.green),
-                                        )
+                                        // GestureDetector(
+                                        //   onTap: (){
+                                        //     Share.share(Texts().mtoto,subject:'Good Day',);
+                                        //   },
+                                        //   child: Icon(Icons.share,color: Colors.green),
+                                        // )
                                       ],
                                     ),
                                   ],
@@ -125,16 +128,20 @@ class _Baby1State extends State<Baby1> {
                             itemCount: currentBabySnap.data.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.only(top: 5,left: 5,right:5,bottom: 5),
                                 child: Container(
                                   color: Colors.black12,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(0),
                                     child: Column(
                                       children: [
                                         Container(
                                             width: MediaQuery.of(context).size.width,
-                                            height: 300,
+                                            constraints: BoxConstraints(
+                                              minHeight: 300,
+                                              maxHeight: 500,
+                                            ),
+                                            // height: 300,
                                             child: CachedNetworkImage(
                                                 imageUrl: currentBabySnap.data[index]['image'],fit: BoxFit.fill,
                                                 placeholder: (context, url) => Image.asset('images/place4.png',fit: BoxFit.cover),
@@ -143,7 +150,7 @@ class _Baby1State extends State<Baby1> {
                                           ),
                                         SizedBox(height: 7 ),
                                         Padding(
-                                          padding: const EdgeInsets.all(3.0),
+                                          padding: const EdgeInsets.all(5.0),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -160,9 +167,9 @@ class _Baby1State extends State<Baby1> {
                                               Text( currentBabySnap.data[index]['description'],
                                                   style: TextStyle(
                                                       fontSize: 15,
-                                                      fontFamily: 'Economica',
-                                                      fontWeight: FontWeight.w600,
-                                                      color: Colors.grey[800])),
+                                                      fontFamily: '',
+                                                      fontWeight: FontWeight.w400,
+                                                      color: Colors.grey[600])),
                                             ],
                                           ),
                                         ),
@@ -181,12 +188,12 @@ class _Baby1State extends State<Baby1> {
                                                       fontWeight: FontWeight.w500,
                                                       color: Colors.green[400])),
                                               SizedBox(width:20),
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Share.share(currentBabySnap.data[index]['description'],subject:currentBabySnap.data[index]['image'],);
-                                                },
-                                                child: Icon(Icons.share,color: Colors.green),
-                                              )
+                                              // GestureDetector(
+                                              //   onTap: (){
+                                              //     Share.share(currentBabySnap.data[index]['description'],subject:currentBabySnap.data[index]['image'],);
+                                              //   },
+                                              //   child: Icon(Icons.share,color: Colors.green),
+                                              // )
                                               ],
                                           ),
                                         )
@@ -201,7 +208,7 @@ class _Baby1State extends State<Baby1> {
                       ConnectionState.waiting) {
                     return CustomLoading();
                   } else {
-                    return Text('No Data');
+                    return Text('Hakuna Data');
                   }
                 },
               ),

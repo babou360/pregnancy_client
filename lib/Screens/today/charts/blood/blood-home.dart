@@ -7,7 +7,7 @@ import 'package:pregnancy_tracking_app/models/user.dart';
 import 'package:pregnancy_tracking_app/custom/appBar.dart';
 
 class Blood extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   Blood(this.currentUser);
   @override
   _BloodState createState() => _BloodState();
@@ -22,7 +22,7 @@ class _BloodState extends State<Blood> {
     TextEditingController weightController = TextEditingController();
     String month;
     String weight;
-    User currentUser;
+    User1 currentUser;
     bool isLoading = false;
     List<String> weeks = ['1','2','3','4','5','6','7','8','9'];
      String _week;
@@ -70,12 +70,13 @@ class _BloodState extends State<Blood> {
         setState(() {
         isLoading=true;
         });
-        Firestore
+        FirebaseFirestore
         .instance
         .collection('blood')
-        .document(this.widget.currentUser.mobileNumber)
+        .doc(this.widget.currentUser.mobileNumber)
         .collection('current')
         .add({
+          'time': DateTime.now(),
           'month': month,
           'weight': weight
         });
@@ -91,7 +92,7 @@ class _BloodState extends State<Blood> {
 
    uzito(){
      return FutureBuilder(
-       future:Firestore.instance.collection('blood').document(this.widget.currentUser.mobileNumber).collection('current').orderBy('month',descending: false).getDocuments(),
+       future:FirebaseFirestore.instance.collection('blood').doc(this.widget.currentUser.mobileNumber).collection('current').orderBy('month',descending: false).get(),
        builder: (context,snapshot){
         //  print('Data Length: ${snapshot.data.documents.length}');
          if(snapshot.hasData){
@@ -100,7 +101,8 @@ class _BloodState extends State<Blood> {
           crossAxisCount: 1,
           mainAxisSpacing: 0,
           scrollDirection: Axis.horizontal,
-          children: List.generate(snapshot.data.documents.length,(index){
+          children: List.generate(snapshot.data.docs.length,(index){
+          // children: List.generate(snapshot.data.documents.length,(index){
             return SingleChildScrollView(
               child: Container(
                 // height: 20,
@@ -125,7 +127,7 @@ class _BloodState extends State<Blood> {
                             width: 60,
                             child: Text(' Mwezi:',
                             style: TextStyle(fontFamily: 'Noto',fontSize: 12,fontWeight: FontWeight.w700))),
-                          Text(snapshot.data.documents[index]['month'].toString(),
+                          Text(snapshot.data.docs[index]['month'].toString(),
                           style: TextStyle(fontFamily: 'Noto',fontSize: 15,color: Colors.green)),
                         ]),
                         Divider(color: Colors.green,),
@@ -135,7 +137,7 @@ class _BloodState extends State<Blood> {
                             width: 50,
                             child: Text(' CBC:',
                             style: TextStyle(fontFamily: 'Roboto',fontSize: 12,fontWeight: FontWeight.w700))),
-                          Text(snapshot.data.documents[index]['weight'].toString(),
+                          Text(snapshot.data.docs[index]['weight'].toString(),
                           style: TextStyle(fontFamily: 'Roboto',fontSize: 15,color: Colors.green))
                         ]),
                         VerticalDivider(color: Colors.white,)
@@ -352,10 +354,10 @@ class _BloodState extends State<Blood> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore
+      stream: FirebaseFirestore
         .instance
         .collection('blood')
-        .document(this.widget.currentUser.mobileNumber)
+        .doc(this.widget.currentUser.mobileNumber)
         .collection('current')
         .orderBy('month',descending: false)
         .snapshots(),
@@ -365,14 +367,15 @@ class _BloodState extends State<Blood> {
             child: Text('Jaza Blood Count Kuona Chati',
             style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.grey[800],fontFamily: 'Noto')),
           );
-        }else if(snapshot.data.documents.length< 1) {
+        }else if(snapshot.data.docs.length< 1) {
           return Center(
             child: Text('Jaza Blood Count Kuona Chati',
             style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.grey[800],fontFamily: 'Noto')),
           );
         } else {
-          List<Sales> sales = snapshot.data.documents
-              .map((documentSnapshot) => Sales.fromMap(documentSnapshot.data))
+          List<Sales> sales = snapshot.data.docs
+          .map((documentSnapshot) => Sales.fromMap(documentSnapshot.data()))
+              // .map((documentSnapshot) => Sales.fromMap(documentSnapshot.data))
               .toList();
           return _buildChart(context, sales);
         }
@@ -422,13 +425,14 @@ class _BloodState extends State<Blood> {
                           child: Text('Hapana',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontFamily: 'Noto'))),
                           FlatButton(
                           onPressed:(){
-                            Firestore
+                            FirebaseFirestore
                             .instance
                             .collection('blood')
-                            .document(this.widget.currentUser.mobileNumber)
+                            .doc(this.widget.currentUser.mobileNumber)
                             .collection('current')
-                            .getDocuments().then((snapshot) {
-                              List<DocumentSnapshot> allDocs = snapshot.documents;
+                            .get().then((snapshot) {
+                            // .getDocuments().then((snapshot) {
+                              List<DocumentSnapshot> allDocs = snapshot.docs;
                               for (DocumentSnapshot ds in allDocs){
                                 ds.reference.delete()
                                 .then((value){

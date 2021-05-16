@@ -1,4 +1,4 @@
-class User {
+class User1 {
   String mobileNumber; // USED as user id
   String name;
   String profileImageURL;

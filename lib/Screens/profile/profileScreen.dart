@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
-  User currentUser;
+  User1 currentUser;
   ProfileScreen(this.currentUser);
 
   @override
@@ -42,22 +42,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     final joined = this.widget.currentUser.joinedAt;
     final payDate = this.widget.currentUser.payDate;
-    final renewal = this.widget.currentUser.renewalDate;
+    final renewal = this.widget.currentUser.payDate;
     final date2 = DateTime.now();
     final difference = date2.difference(joined).inDays;
-    final ideal = 5-difference;
+    final ideal = 7-difference;
     final difference1 = renewal.difference(date2).inDays;
 
     check() {
       // if (difference > 5) {
       //  return Text("Your Trial Has Ended");
       // }else
-       if(difference == 5){
+       if(difference == 7){
         return Text("Trial yako inaisha leo");
-      }else if(difference < 5){
+      }else if(difference < 7){
         return Row(
           children: [
-            Text('Trial yako itaisha baada ya siku ',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white,fontSize: 15)),
+            Text('Trial yako itaisha baada ya siku ',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.green,fontSize: 15)),
             Text(ideal.toString(),style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 15)),
             // Text(' Day(s) Time',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey,fontSize: 15))
           ],
@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text('Utalipa tena baada ya siku ',
             style: TextStyle(fontWeight: FontWeight.w500,
             fontFamily: '',
-            color: Colors.white,fontSize: 15)),
+            color: Colors.green,fontSize: 15)),
             Text(difference1.toString(),
             style: TextStyle(fontWeight: FontWeight.w500,
             fontFamily: '',
@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(' kupita',
             style: TextStyle(fontWeight: FontWeight.w500,
             fontFamily: '',
-            color: Colors.white,fontSize: 15))
+            color: Colors.green,fontSize: 15))
           ],
         );
       }
@@ -86,8 +86,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.green[600].withOpacity(.9),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+          color: Colors.green[300].withOpacity(0),
+          border: Border.all(color: Colors.green),
+          borderRadius: BorderRadius.all(Radius.circular(20))
+        ),
+        // decoration: BoxDecoration(
+        //     color: Colors.green[600].withOpacity(.9),
+        //     borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -101,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyle(fontWeight: FontWeight.w400,
                   fontFamily: '',
                   color: Colors.grey[800],fontSize: 20)),
-                  Icon(Icons.bookmark,size: 30,color: Colors.white)],
+                  Icon(Icons.bookmark,size: 30,color: Colors.green)],
               ),
               SizedBox(height: 10,),
               check(),
@@ -117,8 +122,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
           decoration: BoxDecoration(
-              color: Colors.green[600].withOpacity(.9),
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+          color: Colors.green[300].withOpacity(0),
+          border: Border.all(color: Colors.green),
+          borderRadius: BorderRadius.all(Radius.circular(20))
+        ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -137,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
-                        color: Colors.green[300].withOpacity(.3),
+                        color: Colors.green,
                         borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
                       child: IconButton(
@@ -161,13 +168,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.w400, color: Colors.grey[800])),
                     SizedBox( width: 10),
                     Text(
-                      DateFormat.yMd('en_US').format(this.widget.currentUser.lastPeriodDate)
-                        // DateFormat('EEE, d MMM yyyy')
-                        //     .format(this.widget.currentUser.lastPeriodDate)
-                            .toString(),
+                      '${this.widget.currentUser.lastPeriodDate.day}/${this.widget.currentUser.lastPeriodDate.month}/${this.widget.currentUser.lastPeriodDate.year}',
                         style: TextStyle(
                           fontFamily: 'Noto',
-                            fontWeight: FontWeight.w300, color: Colors.white))
+                            fontWeight: FontWeight.w300, color: Colors.green))
                   ],
                 )
               ],
@@ -225,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        Text('Contact',
+                        Text('Kuhusu sisi',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Roboto',
@@ -241,8 +245,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        decoration: BoxDecoration(
-          color: Colors.green[600].withOpacity(.9),
+       decoration: BoxDecoration(
+          color: Colors.green[300].withOpacity(0),
+          border: Border.all(color: Colors.green),
           borderRadius: BorderRadius.all(Radius.circular(20))
         ),
       ),
@@ -250,7 +255,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _whatsapp() async {
-  const url = 'https://wa.me/+255787474787';
+  const url = 'https://wa.me/+255744644225';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -267,8 +272,17 @@ _instagram() async {
   }
 }
 
+_shop() async {
+  const url = 'https://mamanamwanastore.zobaze.shop/';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 _facebook() async {
-  const url = 'https://www.facebook.com/mamanamwana';
+  const url = 'https://www.facebook.com/mamanamwana/';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -291,7 +305,7 @@ _facebook() async {
               borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
               color: Colors.green[600]
             ),
-            height: MediaQuery.of(context).size.height  * 0.4,
+            // height: MediaQuery.of(context).size.height  * 0.4,
             child: Center(
               child: Wrap(
                 children: [
@@ -301,7 +315,7 @@ _facebook() async {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Icon(FontAwesomeIcons.projectDiagram,color: Colors.white),
-                        Text('Contact Us',style: TextStyle(fontFamily: 'Noto',fontSize: 20,color: Colors.grey[800])),
+                        Text('Viunganishi',style: TextStyle(fontFamily: 'Noto',fontSize: 20,color: Colors.grey[800])),
                         IconButton(
                           icon: Icon(Icons.cancel_outlined,size: 40,color: Colors.white),
                           onPressed:()=> Navigator.pop(context)),
@@ -343,6 +357,23 @@ _facebook() async {
                     ),
                   ),
                   GestureDetector(
+                    onTap: _shop,
+                    child: Container(
+                      // color: Colors.green[700],
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FontAwesomeIcons.shoppingBag,color: Colors.white),
+                            SizedBox(width: 10,),
+                            Text('Duka Letu',style: TextStyle(fontFamily: 'Noto',fontSize: 20,color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
                     onTap: _facebook,
                     child: Container(
                       // color: Colors.green[700],
@@ -358,7 +389,7 @@ _facebook() async {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

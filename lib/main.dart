@@ -5,6 +5,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pregnancy_tracking_app/services/authService.dart';
@@ -15,7 +17,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //  await Firebase.initializeApp();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(MyApp());
@@ -44,24 +46,21 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         if (user == null) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => SignUp()
-            )
-          );
+              MaterialPageRoute(builder: (context) => SignUp()));
           // firstWidget = SignUp();
         } else {
-          Firestore.instance
+          FirebaseFirestore.instance
               .collection('users')
-              .document(user.phoneNumber)
+              .doc(user.phoneNumber)
               .get()
               .then((value) {
-                Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(user.phoneNumber),
-                    ),
-                  );
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(user.phoneNumber),
+              ),
+            );
             // firstWidget = HomeScreen(user.phoneNumber);
           });
         }
@@ -86,14 +85,14 @@ class _MyAppState extends State<MyApp> {
     //   },
     // );
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'mama na mwana',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home:WelcomeScreen(),
-        //firstWidget
-        );
+      debugShowCheckedModeBanner: false,
+      title: 'mama na mwana',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: WelcomeScreen(),
+      //firstWidget
+    );
   }
 }
